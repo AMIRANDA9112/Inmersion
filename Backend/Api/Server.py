@@ -7,7 +7,6 @@ import struct
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host_ip = '127.0.1.1'  # paste your server ip address here
 port = 8000
-s = 0
 
 while 1:
     try:
