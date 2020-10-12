@@ -4,9 +4,9 @@ $(document).ready(function(){
   let canvas = document.querySelector("#canvasElement");
   let ctx = canvas.getContext('2d');
 
-  var localMediaStream = null;
+  let localMediaStream = null;
 
-  var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+  const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
   function sendSnapshot() {
     if (!localMediaStream) {
@@ -23,7 +23,7 @@ $(document).ready(function(){
     console.log('Connected!');
   });
 
-  var constraints = {
+  const constraints = {
     video: {
       width: { min: 640 },
       height: { min: 480 }
