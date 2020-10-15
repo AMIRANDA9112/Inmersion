@@ -6,14 +6,14 @@ $(document).ready(function(){
 
   let localMediaStream = null;
 
-  const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+  let socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
   function sendSnapshot() {
     if (!localMediaStream) {
       return;
     }
 
-    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, 300, 150);
 
     let dataURL = canvas.toDataURL('image/jpeg');
     socket.emit('input image', dataURL);
