@@ -29,12 +29,18 @@
   }
   .nav-item{
     font-size: 20px;
-  }   
+  }
+  @media only screen and (max-width: 768px) {
+    .mylogo {
+	width: 60%;
+    }
+}   
 </style>
 
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark"
+style="background-image: url(../static/images/background2.jpg)">
   <a class="navbar-brand" href="/"> Immersion</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
@@ -58,7 +64,7 @@
 <body class="bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-md-9 text-center text-md-left pr-md-6">
+            <div class="col-md-8 text-center text-md-left pr-md-6">
                 <h1 class="mb-3 display-4">Present your slides with augmented reality tools
                     <span class="badge badge-danger">New</span>
                 </h1>
@@ -68,13 +74,86 @@
                 about using your mouse, and keyboard, freeing your hands to increase your audience atention.
                 </p>
             </div>
-            <div class="col-md-3">
-                <img src="../static/images/logo.jpg" class="mx-auto d-block img-fluid">
+            <div class="col-md-4">
+                <img src="../static/images/logo.gif" class="mx-auto d-block img-fluid mylogo">
             </div>
         </div><br>
-        <button type="submit" class="btn btn-primary btn-lg">Get Started</button>  
+        <a href="signup" class="btn btn-block btn-lg bg-dark text-light font">
+          <b>Get Started</b></a>  
     </div>
-        <br>
+        <!-- Grid of images and descriptions -->
+        <div class="container bg-light text-dark"><br>
+          <hr />
+          <div class="row">
+            <div class="col-md-4 center-block text-center">
+              <img src="../static/images/how_it_works1.jpg" 
+              class="img-fluid rounded-circle mx-auto d-block" width="150" height="150">
+              <p>
+                <h3>How does it work?</h3>
+                <p>Enhance your presentation skills with augmented reality tools.</p>
+              </p>
+            </div>
+              
+            <div class="col-md-4 center-block text-center">
+              <img src="../static/images/video_chat.jpg" 
+              class="img-fluid rounded-circle mx-auto d-block" width="150" height="150">
+              <p class="d-block mx-auto">
+                <p>
+                  <h3>Where can I use it?</h3>
+                  <p>As an extension of any video-chat platform.
+                  </p>
+                </p>
+              </div>
+        
+              <div class="col-md-4 center-block text-center">
+                <img src="../static/images/free2.jpg" 
+                class="img-fluid rounded-circle mx-auto d-block" width="150" height="150">
+                <p class="d-block mx-auto">
+                <p>
+                  <h3>Is it free?</h3>
+                  <p>This first version it's completely free to use!.</p>
+                </p>
+              </div>
+              <br><br>
+          </div>
+        
+          <div class="row">
+            <div class="col-md-4 center-block text-center">
+              <img src="../static/images/login1.png" 
+                class="img-fluid rounded-circle mx-auto d-block" width="150" height="150">
+              <p>
+                <h3>How can I access the service?</h3>
+                <p>
+                  Just sign up with us, and after you login, then you will have access.
+                </p>
+              </p>
+            </div>
+              
+            <div class="col-md-4 center-block text-center">
+              <img src="../static/images/tools.png" 
+              class="img-fluid rounded-circle mx-auto d-block" width="150" height="150">
+                <p>
+                  <h3>What are the aumented reality tools for?</h3>
+                  <p>You can draw, point and show your face on the slides
+                    without the use of the mouse or keyboard.
+                  </p>
+                </p>
+              </div>
+        
+              <div class="col-md-4 center-block text-center">
+                <img src="../static/images/teaching.jpg" 
+                class="img-fluid rounded-circle mx-auto d-block" width="150" height="150">
+                <p>
+                  <h3>What are the main reasons for using Immersion?</h3>
+                  <p>Teaching, pitching your business ideas, giving conferences,
+                    and many more..
+                  </p>
+                </p>
+              </div>
+              <br><br>
+          </div>
+          <hr />
+        </div>
 
         <div class="container">
         <video width="400" controls>
@@ -83,5 +162,7 @@
         </div>
   
 </div>
-
+<br>
 </body>
+
+</html>
