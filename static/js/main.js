@@ -30,7 +30,7 @@ $(document).ready(function(){
     }
   };
 
-  navigator.mediaDevices.webkitGetUserMedia(constraints).then(function(stream) {
+  navigator.mediaDevices.GetUserMedia(constraints).then(function(stream) {
     video.srcObject = stream;
     localMediaStream = stream;
 
