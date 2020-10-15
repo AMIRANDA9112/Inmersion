@@ -4,9 +4,9 @@ $(document).ready(function(){
   let canvas = document.querySelector("#canvasElement");
   let ctx = canvas.getContext('2d');
 
-  let localMediaStream = null;
+  var localMediaStream = null;
 
-  let socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+  var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
   function sendSnapshot() {
     if (!localMediaStream) {
@@ -23,14 +23,14 @@ $(document).ready(function(){
     console.log('Connected!');
   });
 
-  const constraints = {
+  var constraints = {
     video: {
       width: { min: 640 },
       height: { min: 480 }
     }
   };
 
-  navigator.mediaDevices.GetUserMedia(constraints).then(function(stream) {
+  navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
     video.srcObject = stream;
     localMediaStream = stream;
 
@@ -40,4 +40,4 @@ $(document).ready(function(){
   }).catch(function(error) {
     console.log(error);
   });
-});
+
