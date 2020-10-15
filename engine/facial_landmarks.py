@@ -17,7 +17,7 @@ def antimirror(b, part_face):
 cap = cv2.VideoCapture(0)
 
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("shape_68_dots.dat")
+predictor = dlib.shape_predictor("../resources/shape_68_dots.dat")
 
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
 (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
