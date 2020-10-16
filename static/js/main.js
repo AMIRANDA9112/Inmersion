@@ -13,7 +13,7 @@ $(document).ready(function(){
       return;
     }
 
-    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, 300, 150);
+    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, 640, 480);
 
     let dataURL = canvas.toDataURL('image/jpeg');
     socket.emit('input image', dataURL);
@@ -25,8 +25,8 @@ $(document).ready(function(){
 
   var constraints = {
     video: {
-      width: { min: 640 },
-      height: { min: 480 }
+      width: 640 ,
+      height: 480
     }
   };
 
@@ -36,7 +36,7 @@ $(document).ready(function(){
 
     setInterval(function () {
       sendSnapshot();
-    }, 300);
+    }, 200);
   }).catch(function(error) {
     console.log(error);
   });
