@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <title>Immersion Project</title>
-  <link rel="shortcut icon" href="../static/images/logo_icon.ico">
+  <link rel="shortcut icon" href="../media/logo_icon.ico">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -11,9 +11,19 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
   integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 </head>
 
 <style>
+  video {
+      width: 100%;
+      height: auto;
+  }
+  .font, p{
+      font-family: "Roboto";
+      font-size: 24px;
+      color: rgba(0, 0, 0, 0.671);
+  }
   .navbar-brand{
     font-size: 24px;
   }
@@ -45,39 +55,33 @@
 </nav>
 <br><br>
 
-<div class="container">
-  <h1 class="text-primary">Sign In <small class="text-secondary">to be able to use this video-chat extension</small></h1>    <br>
-    <form action="/login" method="POST">
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-        <p style="color:red">{{ message }}</p>
-      </div>
-      <div class="form-group">
-        <label for="pwd">Password:</label>
-        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
-        <p style="color:red">{{ message_p }}</p>
-      </div>
-      <div class="form-group form-check">
-        <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" name="remember"> Remember me
-        </label>
-      </div>
-      <button type="submit" class="btn btn-primary">Login</button>
-    </form><br>
-    {% if message_success %}
-    <div class="alert alert-success">
-      <strong>{{ message_success }}</strong>
-    </div>
-    {% endif %}
-  </div>
-  <br><br>
-  <!-- Single Image -->
+<body class="bg-light">
     <div class="container">
-        <img src="../static/images/Immersion1.jpg" class="mx-auto d-block img-fluid img-thumbnail"
-        alt="3D smartphone" width="500">
+        <div class="row">
+            <div class="col-md-9 text-center text-md-left pr-md-6">
+                <h1 class="mb-3 display-4">Present your slides with augmented reality tools
+                    <span class="badge badge-danger">New</span>
+                </h1>
+                <p class="lead mb-4 font">
+                Immersion project is a plugin extension for video-chat applications which helps you, and your team,
+                enhance your on-screen presentations through a set of augmented reality tools. With us you can forget
+                about using your mouse, and keyboard, freeing your hands to increase your audience atention.
+                </p>
+            </div>
+            <div class="col-md-3">
+                <img src="../media/logo.jpg" class="mx-auto d-block img-fluid">
+            </div>
+        </div><br>
+        <button type="submit" class="btn btn-primary btn-lg">Get Started</button>  
     </div>
+        <br>
 
-<br><br>
+        <div class="container">
+        <video width="400" controls>
+            <source src="../media/miranda.mp4" type="video/mp4">
+        </video>
+        </div>
+  
+</div>
+
 </body>
-</html>
