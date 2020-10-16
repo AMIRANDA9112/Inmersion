@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  let namespace = "/test";
+  let namespace = "/tests";
   let video = document.querySelector("#videoElement");
   let canvas = document.querySelector("#canvasElement");
   let ctx = canvas.getContext('2d');
@@ -36,7 +36,7 @@ $(document).ready(function(){
 
     setInterval(function () {
       sendSnapshot();
-    }, 200);
+    }, 300);
   }).catch(function(error) {
     console.log(error);
   });
