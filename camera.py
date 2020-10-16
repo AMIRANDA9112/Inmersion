@@ -28,7 +28,7 @@ class Camera(object):
 
         ################## where the hard work is done ############
         # output_img is an PIL image
-        output_img, = self.makeup_artist.apply_makeup(input_img)
+        output_img = self.makeup_artist.apply_makeup(input_img)
 
         # output_str is a base64 string in ascii
         output_str = pil_image_to_base64(output_img)
