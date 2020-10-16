@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  let namespace = "/tests";
+  let namespace = "/test";
   let video = document.querySelector("#videoElement");
   let canvas = document.querySelector("#canvasElement");
   let ctx = canvas.getContext('2d');
@@ -13,7 +13,7 @@ $(document).ready(function(){
       return;
     }
 
-    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, 640, 480);
+    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, 300, 150);
 
     let dataURL = canvas.toDataURL('image/jpeg');
     socket.emit('input image', dataURL);
@@ -25,8 +25,8 @@ $(document).ready(function(){
 
   var constraints = {
     video: {
-      width: 640 ,
-      height: 480
+      width: { min: 640 },
+      height: { min: 480 }
     }
   };
 

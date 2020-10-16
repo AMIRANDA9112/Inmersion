@@ -15,14 +15,14 @@ socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
 
 
-@socketio.on('input image', namespace='/tests')
+@socketio.on('input image', namespace='/test')
 def test_message(input):
     input = input.split(",")[1]
     input.split(",")[1]
     camera.enqueue_input(input)
 
 
-@socketio.on('connect', namespace='/tests')
+@socketio.on('connect', namespace='/test')
 def test_connect():
     app.logger.info("client connected")
 
