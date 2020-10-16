@@ -1,7 +1,7 @@
 import threading
-import binascii
+import base64
 from time import sleep
-from utils import base64_to_pil_image, pil_image_to_base64
+import cv2
 
 
 class Camera(object):
@@ -22,11 +22,13 @@ class Camera(object):
         input_str = self.to_process.pop(0)
 
         # convert it to a pil image
-        input_img = base64_to_pil_image(input_str)
+        input_str = base64.b64decode(input_str)
+        input_img = np.fromstring(input_str, np.uint8)
+        input_img = cv2.imdecode(input_img, cv2.IMREAD_UNCHANGED)
 
         ################## where the hard work is done ############
         # output_img is an PIL image
-        output_img = self.makeup_artist.apply_makeup(input_img)
+        output_img, = self.makeup_artist.apply_makeup(input_img)
 
         # output_str is a base64 string in ascii
         output_str = pil_image_to_base64(output_img)

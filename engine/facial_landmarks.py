@@ -14,48 +14,43 @@ def antimirror(b, part_face):
     return part_face
 
 
-cap = cv2.VideoCapture(0)
+def mask(image, init):
 
-detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("../resources/shape_68_dots.dat")
+    detector = dlib.get_frontal_face_detector()
+    predictor = dlib.shape_predictor("../resources/shape_68_dots.dat")
 
-(lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
-(rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
-(mStart, mEnd) = face_utils.FACIAL_LANDMARKS_IDXS["mouth"]
+    (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
+    (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
+    (mStart, mEnd) = face_utils.FACIAL_LANDMARKS_IDXS["mouth"]
 
-init = "../media/home1.png"
+    init = "../media/home1.png"
 
-gn = (0, 255, 0)
-rd = (0, 0, 255)
-bl = (255, 0, 0)
-bk = (0, 0, 0)
-wt = (255, 255, 255)
+    gn = (0, 255, 0)
+    rd = (0, 0, 255)
+    bl = (255, 0, 0)
+    bk = (0, 0, 0)
+    wt = (255, 255, 255)
 
-im = 1
+    im = 1
 
-aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
-parameters = aruco.DetectorParameters_create()
-pts = deque(maxlen=4)
+    aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
+    parameters = aruco.DetectorParameters_create()
+    pts = deque(maxlen=4)
 
-ret, image = cap.read()
-a1, b1, c1 = image.shape
+    a1, b1, c1 = image.shape
 
-beforey = round((a1 / 100) * 60)
-beforex = round((b1 / 100) * 40)
+    beforey = round((a1 / 100) * 60)
+    beforex = round((b1 / 100) * 40)
 
-nexty = round((a1 / 100) * 60)
-nextx = round((b1 / 100) * 60)
+    nexty = round((a1 / 100) * 60)
+    nextx = round((b1 / 100) * 60)
 
-center = None
-r = 15
-r1 = 0
-r2 = 0
+    center = None
+    r = 15
+    r1 = 0
+    r2 = 0
 
-r3 = 0
-
-while cap.isOpened():
-
-    ret, image = cap.read()
+    r3 = 0
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -82,7 +77,7 @@ while cap.isOpened():
 
         leftEyeHull = antimirror(b, leftEyeHull)
 
-        rightEyeHul = antimirror(b, rightEyeHull)
+        rightEyeHull = antimirror(b, rightEyeHull)
 
         x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
         x1.start()
@@ -121,7 +116,7 @@ while cap.isOpened():
         thick = int(np.sqrt(len(pts) / float(i + 1)) * 2.5)
         cv2.line(bg, pts[i - 1], pts[i], (0, 0, 225), thick)
 
-    cv2.imshow('Recognition Laboratory', bg)
+    return bg, center
 
     r3 = 0
     if center:
@@ -175,10 +170,3 @@ while cap.isOpened():
 
         if r2 == 1 and r3 == 0:
             r2 = 0
-
-    k = cv2.waitKey(1)
-    if k == 27:
-        break
-
-cap.release()
-cv2.destroyAllWindows()
