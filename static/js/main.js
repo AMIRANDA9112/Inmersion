@@ -13,7 +13,7 @@ $(document).ready(function(){
       return;
     }
 
-    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, 640, 480);
+    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, video.videoWidth, video.videoHeight);
 
     let dataURL = canvas.toDataURL('image/jpeg');
     socket.emit('input image', dataURL);
