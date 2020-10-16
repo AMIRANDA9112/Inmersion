@@ -13,7 +13,7 @@ $(document).ready(function(){
       return;
     }
 
-    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, 640, 480)
+    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, 320, 240)
     let dataURL = canvas.toDataURL('image/jpeg');
     socket.emit('input image', dataURL);
   }
@@ -35,7 +35,7 @@ $(document).ready(function(){
 
     setInterval(function () {
       sendSnapshot();
-    }, 500);
+    }, 250);
   }).catch(function(error) {
     console.log(error);
   });
