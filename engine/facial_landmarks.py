@@ -14,7 +14,7 @@ def antimirror(b, part_face):
     return part_face
 
 
-def mask(image, init):
+# def mask(image, init):
 
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor("../resources/shape_68_dots.dat")

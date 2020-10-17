@@ -4,7 +4,6 @@ from time import sleep
 from utils import base64_to_pil_image, pil_image_to_base64
 
 
-
 class Camera(object):
     def __init__(self, makeup_artist):
         self.to_process = []
@@ -26,7 +25,7 @@ class Camera(object):
         input_img = base64_to_pil_image(input_str)
 
         ################## where the hard work is done ############
-        # output_img is an PIL imageheroku logs --tail
+        # output_img is an PIL image
         output_img = self.makeup_artist.apply_makeup(input_img)
 
         # output_str is a base64 string in ascii
