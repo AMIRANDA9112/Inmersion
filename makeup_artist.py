@@ -14,7 +14,7 @@ class Makeup_artist(object):
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        _, im_arr = cv2.imencode('.jpeg', gray)  # im_arr: image in Numpy one-dim array format.
+        _, im_arr = cv2.imencode('.jpg', gray)  # im_arr: image in Numpy one-dim array format.
         im_bytes = im_arr.tobytes()
 
         imgf = base64.b64encode(im_bytes)
