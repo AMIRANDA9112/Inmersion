@@ -1,9 +1,9 @@
 import threading
-import base64
-import cv2
 import binascii
 from time import sleep
 from utils import base64_to_pil_image, pil_image_to_base64
+
+
 
 class Camera(object):
     def __init__(self, makeup_artist):
@@ -23,12 +23,10 @@ class Camera(object):
         input_str = self.to_process.pop(0)
 
         # convert it to a pil image
-        input_str = base64.b64decode(input_str)
-        input_img = np.fromstring(input_str, np.uint8)
-        input_img = cv2.imdecode(input_img, cv2.IMREAD_UNCHANGED)
+        input_img = base64_to_pil_image(input_str)
 
         ################## where the hard work is done ############
-        # output_img is an PIL image
+        # output_img is an PIL imageheroku logs --tail
         output_img = self.makeup_artist.apply_makeup(input_img)
 
         # output_str is a base64 string in ascii
