@@ -1,4 +1,4 @@
-import cv2
+from PIL import Image
 
 
 class Makeup_artist(object):
@@ -6,6 +6,4 @@ class Makeup_artist(object):
         pass
 
     def apply_makeup(self, img):
-
-        image = cv2.imread(cv2.flip(img, 0))
-        return image
+        return img.transpose(Image.FLIP_LEFT_RIGHT)
