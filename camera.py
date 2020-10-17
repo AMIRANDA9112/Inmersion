@@ -30,7 +30,7 @@ class Camera(object):
 
 
         # convert eh base64 string in ascii to base64 string in _bytes_
-        self.to_output.append(binascii.a2b_base64(output_str))
+        self.to_output.append(output_str)
 
     def keep_processing(self):
         while True:
