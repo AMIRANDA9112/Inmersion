@@ -72,6 +72,6 @@ class Makeup_artist(object):
             thick = int(np.sqrt(len(pts) / float(i + 1)) * 2.5)
             cv2.line(bg, pts[i - 1], pts[i], (0, 0, 225), thick)
 
-        _, im_arr = cv2.imencode('.jpg', gray)  # im_arr: image in Numpy one-dim array format.
+        _, im_arr = cv2.imencode('.jpg', bg)  # im_arr: image in Numpy one-dim array format.
 
         return im_arr
