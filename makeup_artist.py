@@ -1,6 +1,7 @@
 import base64
-import numpy as np
 import cv2
+import numpy as np
+
 
 class Makeup_artist(object):
     def __init__(self):
