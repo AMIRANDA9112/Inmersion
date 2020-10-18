@@ -12,15 +12,13 @@ class Makeup_artist(object):
     def __init__(self):
         pass
 
-    def antimirror(b, part_face):
+    def antimirror(self, b, part_face):
         for l in part_face:
             for r in l:
                 r[0] = b - r[0]
         return part_face
 
     def apply_makeup(self, image):
-
-
 
         cap = cv2.VideoCapture(0)
 
