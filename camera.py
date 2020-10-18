@@ -42,7 +42,7 @@ class Camera(object):
 
         print(im_bytes, "first output")
         imgf = base64.b64encode(im_bytes)
-        print(imgfs, "two output")
+        print(imgf, "two output")
 
         self.to_output.append(imgf)
 
