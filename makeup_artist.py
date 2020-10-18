@@ -20,8 +20,6 @@ class Makeup_artist(object):
 
     def apply_makeup(self, image):
 
-        cap = cv2.VideoCapture(0)
-
         detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor("./resources/shape_68_dots.dat")
 
@@ -45,14 +43,7 @@ class Makeup_artist(object):
 
         a1, b1, c1 = image.shape
 
-        beforey = round((a1 / 100) * 60)
-        beforex = round((b1 / 100) * 40)
-
-        nexty = round((a1 / 100) * 60)
-        nextx = round((b1 / 100) * 60)
-
         center = None
-
 
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
