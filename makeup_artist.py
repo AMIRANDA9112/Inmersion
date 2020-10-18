@@ -79,11 +79,11 @@ class Makeup_artist(object):
             leftEyeHull = cv2.convexHull(leftEye)
             rightEyeHull = cv2.convexHull(rightEye)
 
-            Mouth = self.antimirror(b, Mouth)
+            Mouth = self.antimirror(b1, Mouth)
 
-            leftEyeHull = self.antimirror(b, leftEyeHull)
+            leftEyeHull = self.antimirror(b1, leftEyeHull)
 
-            rightEyeHul = self.antimirror(b, rightEyeHull)
+            rightEyeHul = self.antimirror(b1, rightEyeHull)
 
             x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
             x1.start()
@@ -96,13 +96,13 @@ class Makeup_artist(object):
             for (x, y) in shape:
                 c += 1
                 if c in [18, 19, 20, 21, 22, 23, 24, 25, 26, 27]:
-                    cv2.circle(bg, ((b - x), y), 1, bk, -1)
+                    cv2.circle(bg, ((b1 - x), y), 1, bk, -1)
 
                 if c in [28, 29, 30, 31, 32, 33, 34, 35, 36]:
-                    cv2.circle(bg, ((b - x), y), 1, rd, -1)
+                    cv2.circle(bg, ((b1 - x), y), 1, rd, -1)
 
                 if c in [61, 62, 63, 64, 65, 66, 67, 68]:
-                    cv2.circle(bg, ((b - x), y), 0, wt, -1)
+                    cv2.circle(bg, ((b1 - x), y), 0, wt, -1)
 
         if np.all(ids is not None):
 
