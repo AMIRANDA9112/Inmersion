@@ -2,6 +2,7 @@ import threading
 import binascii
 from time import sleep
 from utils import base64_to_pil_image, pil_image_to_base64
+import base64
 
 
 class Camera(object):
@@ -21,7 +22,11 @@ class Camera(object):
         # input is an ascii string. 
         input_str = self.to_process.pop(0)
 
-        # convert it to a pil image
+        # convert it to a opencv image
+
+        im_bytes = base64.b64decode(input_str)
+        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
+        input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
 
         ################## where the hard work is done ############
@@ -31,8 +36,10 @@ class Camera(object):
 
         # convert eh base64 string in ascii to base64 string in _bytes_
 
-        output_str = bytearray(output_img)
-        self.to_output.append(output_str)
+        im_bytes = im_arr.tobytes()
+        imgf = base64.b64encode(im_bytes)
+
+        self.to_output.append(imgf)
 
     def keep_processing(self):
         while True:

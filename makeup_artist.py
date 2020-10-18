@@ -8,16 +8,12 @@ class Makeup_artist(object):
         pass
 
     def apply_makeup(self, img):
-
-        im_bytes = base64.b64decode(img)
-        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
-        img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
+        print(img, "inputmakeup")
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         _, im_arr = cv2.imencode('.jpg', gray)  # im_arr: image in Numpy one-dim array format.
-        im_bytes = im_arr.tobytes()
 
-        imgf = base64.b64encode(im_bytes)
+        print(im_arr, "outputmakeup")
 
-        return imgf
+        return im_arr
