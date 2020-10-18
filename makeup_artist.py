@@ -7,7 +7,53 @@ class Makeup_artist(object):
     def __init__(self):
         pass
 
+    def antimirror(b, part_face):
+        for l in part_face:
+            for r in l:
+                r[0] = b - r[0]
+        return part_face
+
     def apply_makeup(self, image):
+
+
+
+        cap = cv2.VideoCapture(0)
+
+        detector = dlib.get_frontal_face_detector()
+        predictor = dlib.shape_predictor("./resources/shape_68_dots.dat")
+
+        (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
+        (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
+        (mStart, mEnd) = face_utils.FACIAL_LANDMARKS_IDXS["mouth"]
+
+        init = "./media/home1.png"
+
+        gn = (0, 255, 0)
+        rd = (0, 0, 255)
+        bl = (255, 0, 0)
+        bk = (0, 0, 0)
+        wt = (255, 255, 255)
+
+        im = 1
+
+        aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
+        parameters = aruco.DetectorParameters_create()
+        pts = deque(maxlen=4)
+
+        a1, b1, c1 = image.shape
+
+        beforey = round((a1 / 100) * 60)
+        beforex = round((b1 / 100) * 40)
+
+        nexty = round((a1 / 100) * 60)
+        nextx = round((b1 / 100) * 60)
+
+        center = None
+        r = 15
+        r1 = 0
+        r2 = 0
+
+        r3 = 0
 
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
