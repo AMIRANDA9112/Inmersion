@@ -40,11 +40,11 @@ class Camera(object):
 
         im_bytes = output_img.tobytes()
 
-        print(im_bytes, "first output")
-        imgf = base64.b64encode(im_bytes)
-        print(imgf, "two output")
 
-        self.to_output.append(imgf)
+        imgf = base64.b64encode(im_bytes)
+
+
+        self.to_output.append(binascii.a2b_base64(imgf))
 
     def keep_processing(self):
         while True:
