@@ -1,8 +1,10 @@
-
 import threading
 import binascii
 from time import sleep
 from utils import base64_to_pil_image, pil_image_to_base64
+import base64
+import numpy as np
+import cv2
 
 
 class Camera(object):
@@ -22,23 +24,27 @@ class Camera(object):
         # input is an ascii string. 
         input_str = self.to_process.pop(0)
 
-        # convert it to a pil image
-        input_img = base64_to_pil_image(input_str)
+        # convert it to a opencv image
 
-        print(input_img, "input")
+        im_bytes = base64.b64decode(input_str)
+        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
+        input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
+
 
         ################## where the hard work is done ############
         # output_img is an PIL image
-        output_img = self.makeup_artist.apply_makeup(input_img)
+        output_img = self.makeup_artist.apply_makeup(input_str)
 
-        print(output_img, "outpur1")
-
-        # output_str is a base64 string in ascii
-        output_str = pil_image_to_base64(output_img)
-        print(output_str, "output2")
 
         # convert eh base64 string in ascii to base64 string in _bytes_
-        self.to_output.append(binascii.a2b_base64(output_str))
+
+        im_bytes = output_img.tobytes()
+
+        print(im_bytes, "first output")
+        imgf = base64.b64encode(im_bytes)
+        print(imgfs, "two output")
+
+        self.to_output.append(imgf)
 
     def keep_processing(self):
         while True:
@@ -51,3 +57,4 @@ class Camera(object):
     def get_frame(self):
         while not self.to_output:
             sleep(0.05)
+        return self.to_output.pop(0)

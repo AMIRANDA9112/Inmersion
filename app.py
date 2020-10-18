@@ -44,7 +44,7 @@ def gen():
     while True:
         frame = camera.get_frame()
         yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
-               bytearray(encodedImage) + b'\r\n')
+               bytearray(frame) + b'\r\n')
 
 
 @app.route('/video_feed')
