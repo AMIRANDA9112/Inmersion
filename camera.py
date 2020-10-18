@@ -38,7 +38,7 @@ class Camera(object):
 
         # convert eh base64 string in ascii to base64 string in _bytes_
 
-        im_bytes = im_arr.tobytes()
+        im_bytes = output_img.tobytes()
         imgf = base64.b64encode(im_bytes)
 
         self.to_output.append(imgf)
