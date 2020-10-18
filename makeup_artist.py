@@ -52,17 +52,14 @@ class Makeup_artist(object):
         nextx = round((b1 / 100) * 60)
 
         center = None
-        r = 15
-        r1 = 0
-        r2 = 0
 
-        r3 = 0
 
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
         rects = detector(gray, 1)
 
         bg = cv2.imread(init)
+        bg = imutils.resize(bg, heigth=150, width=300)
         a, b, c = bg.shape
         corners, ids, _ = aruco.detectMarkers(image, aruco_dict, parameters=parameters)
 
