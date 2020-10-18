@@ -31,7 +31,7 @@ class Camera(object):
 
         # convert eh base64 string in ascii to base64 string in _bytes_
 
-        output_str = bytearray(output_str)
+        output_str = bytearray(output_img)
         self.to_output.append(output_str)
 
     def keep_processing(self):
