@@ -81,11 +81,11 @@ class Makeup_artist(object):
             leftEyeHull = cv2.convexHull(leftEye)
             rightEyeHull = cv2.convexHull(rightEye)
 
-            Mouth = antimirror(b, Mouth)
+            Mouth = self.antimirror(b, Mouth)
 
-            leftEyeHull = antimirror(b, leftEyeHull)
+            leftEyeHull = self.antimirror(b, leftEyeHull)
 
-            rightEyeHul = antimirror(b, rightEyeHull)
+            rightEyeHul = self.antimirror(b, rightEyeHull)
 
             x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
             x1.start()
