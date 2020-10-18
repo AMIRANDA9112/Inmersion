@@ -1,6 +1,4 @@
-import base64
-import cv2
-import numpy as np
+from PIL import Image
 
 
 class Makeup_artist(object):
@@ -8,12 +6,4 @@ class Makeup_artist(object):
         pass
 
     def apply_makeup(self, img):
-        print(img, "inputmakeup")
-
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-        _, im_arr = cv2.imencode('.jpg', gray)  # im_arr: image in Numpy one-dim array format.
-
-        print(im_arr, "outputmakeup")
-
-        return im_arr
+        return img.transpose(Image.FLIP_LEFT_RIGHT)
