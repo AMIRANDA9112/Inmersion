@@ -15,7 +15,7 @@ Jinja2
 MarkupSafe
 numpy
 olefile
-opencv-python
+opencv-python-headless
 opencv-contrib-python
 Pillow
 pybase64
