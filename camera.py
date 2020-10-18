@@ -21,28 +21,17 @@ class Camera(object):
         if not self.to_process:
             return
 
-        # input is an ascii string. 
         input_str = self.to_process.pop(0)
 
-        # convert it to a opencv image
-
         im_bytes = base64.b64decode(input_str)
-        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
+        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
         input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-
-        ################## where the hard work is done ############
-        # output_img is an PIL image
         output_img = self.makeup_artist.apply_makeup(input_str)
-
-
-        # convert eh base64 string in ascii to base64 string in _bytes_
 
         im_bytes = output_img.tobytes()
 
-
         imgf = base64.b64encode(im_bytes)
-
 
         self.to_output.append(binascii.a2b_base64(imgf))
 
