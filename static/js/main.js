@@ -24,8 +24,8 @@ $(document).ready(function(){
 
   var constraints = {
     video: {
-      width: { min: 640 },
-      height: { min: 480 }
+      width: { max: 640 },
+      height: { max: 480 }
     }
   };
 
