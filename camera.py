@@ -14,7 +14,6 @@ class Camera(object):
         self.to_process = []
         self.to_output = []
         self.makeup_artist = makeup_artist
-        self.diapositiva = cv2.imread("./media/home1.png")
         self.face_detector = dlib.get_frontal_face_detector()
         self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
         self.aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
@@ -34,7 +33,7 @@ class Camera(object):
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
         input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-        output_img = self.makeup_artist.apply_makeup(input_str, self.diapositiva, self.face_detector, self.landmark_detector, self.aruco_dict, self.parameters)
+        output_img = self.makeup_artist.apply_makeup(input_str, self.face_detector, self.landmark_detector, self.aruco_dict, self.parameters)
 
         im_bytes = output_img.tobytes()
 

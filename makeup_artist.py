@@ -19,7 +19,7 @@ class Makeup_artist(object):
                 r[0] = b - r[0]
         return part_face
 
-    def apply_makeup(self, image, diapositiva, face, landmark, aruco_dict, parameters):
+    def apply_makeup(self, image, face, landmark, aruco_dict, parameters):
 
         detector = face
         predictor = landmark
@@ -28,7 +28,7 @@ class Makeup_artist(object):
         (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
         (mStart, mEnd) = face_utils.FACIAL_LANDMARKS_IDXS["mouth"]
 
-        init = diapositiva
+        init = cv2.imread("./media/home1.png")
 
         gn = (0, 255, 0)
         rd = (0, 0, 255)
