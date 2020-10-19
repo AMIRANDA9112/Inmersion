@@ -28,7 +28,7 @@ class Makeup_artist(object):
         (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
         (mStart, mEnd) = face_utils.FACIAL_LANDMARKS_IDXS["mouth"]
 
-        init = cv2.imread("./media/home1.png")
+        bg = cv2.imread("./media/home1.png")
 
         gn = (0, 255, 0)
         rd = (0, 0, 255)
@@ -50,10 +50,6 @@ class Makeup_artist(object):
 
         rects = detector(gray, 1)
 
-        bg = diapositiva
-
-
-        a, b, c = bg.shape
         corners, ids, _ = aruco.detectMarkers(image, aruco_dict, parameters=parameters)
 
         for (i, rect) in enumerate(rects):
