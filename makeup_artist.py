@@ -50,7 +50,7 @@ class Makeup_artist(object):
 
         rects = detector(gray, 1)
 
-        bg =
+        bg = diapositiva
 
 
         a, b, c = bg.shape
