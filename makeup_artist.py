@@ -52,11 +52,7 @@ class Makeup_artist(object):
 
         bg = cv2.imread(init)
 
-        width = 300
-        height = 150
-        dim = (width, height)
 
-        bg = cv2.resize(bg, dim, interpolation=cv2.INTER_AREA)
         a, b, c = bg.shape
         corners, ids, _ = aruco.detectMarkers(image, aruco_dict, parameters=parameters)
 
