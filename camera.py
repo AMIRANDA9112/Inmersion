@@ -34,7 +34,7 @@ class Camera(object):
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
         input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-        output_img = self.makeup_artist.apply_makeup(input_str, self.diapositiva, self.face_detector, self.landmark_detecto, self.aruco_dict, self.parameters)
+        output_img = self.makeup_artist.apply_makeup(input_str, self.diapositiva, self.face_detector, self.landmark_detector, self.aruco_dict, self.parameters)
 
         im_bytes = output_img.tobytes()
 
