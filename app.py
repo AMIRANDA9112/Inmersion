@@ -13,6 +13,8 @@ app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
+FACE_PREDICTOR = dlib.get_frontal_face_detector()
+LANDMARK_PREDICTOR = dlib.shape_predictor("./resources/shape_68_dots.dat")
 
 
 @socketio.on('input image', namespace='/test')

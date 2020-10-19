@@ -21,8 +21,8 @@ class Makeup_artist(object):
 
     def apply_makeup(self, image):
 
-        detector = dlib.get_frontal_face_detector()
-        predictor = dlib.shape_predictor("./resources/shape_68_dots.dat")
+        detector = FACE_PREDICTOR
+        predictor = LANDMARK_PREDICTOR
 
         (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
         (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
@@ -77,7 +77,7 @@ class Makeup_artist(object):
 
             leftEyeHull = self.antimirror(b1, leftEyeHull)
 
-            rightEyeHul = self.antimirror(b1, rightEyeHull)
+            rightEyeHull = self.antimirror(b1, rightEyeHull)
 
             x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
             x1.start()
