@@ -19,16 +19,16 @@ class Makeup_artist(object):
                 r[0] = b - r[0]
         return part_face
 
-    def apply_makeup(self, image):
+    def apply_makeup(self, image, diapositiva, face, landmark, aruco_dict, parameters):
 
-        detector = FACE_PREDICTOR
-        predictor = LANDMARK_PREDICTOR
+        detector = face
+        predictor = landmark
 
         (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
         (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
         (mStart, mEnd) = face_utils.FACIAL_LANDMARKS_IDXS["mouth"]
 
-        init = "./media/home1.png"
+        init = diapositiva
 
         gn = (0, 255, 0)
         rd = (0, 0, 255)
@@ -38,8 +38,8 @@ class Makeup_artist(object):
 
         im = 1
 
-        aruco_dict = ARUCO6
-        parameters = ARUCO_P
+
+
         pts = deque(maxlen=4)
 
         a1, b1, c1 = image.shape
@@ -50,7 +50,7 @@ class Makeup_artist(object):
 
         rects = detector(gray, 1)
 
-        bg = cv2.imread(init)
+        bg =
 
 
         a, b, c = bg.shape
@@ -73,7 +73,7 @@ class Makeup_artist(object):
 
             leftEyeHull = self.antimirror(b1, leftEyeHull)
 
-            rightEyeHull = self.antimirror(b1, rightEyeHull)
+            rightEyeHul = self.antimirror(b1, rightEyeHull)
 
             x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
             x1.start()
