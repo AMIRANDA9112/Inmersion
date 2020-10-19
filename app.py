@@ -78,6 +78,10 @@ def signup():
             return render_template('signup.html', name="Please fill out this field.")
     return render_template('signup.html', countries=countries)
 
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    return render_template('about.html')
+
 
 if __name__ == '__main__':
     socketio.run(app)
