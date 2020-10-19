@@ -6,6 +6,8 @@ from flask_socketio import SocketIO
 from camera import Camera
 from utils import base64_to_pil_image, pil_image_to_base64
 from country_list import countries_for_language
+import dlib
+import cv2.aruco as aruco
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
@@ -15,6 +17,8 @@ socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
 FACE_PREDICTOR = dlib.get_frontal_face_detector()
 LANDMARK_PREDICTOR = dlib.shape_predictor("./resources/shape_68_dots.dat")
+ARUCO6 = aruco.Dictionary_get(aruco.DICT_6X6_250)
+ARUCO_P = aruco.DetectorParameters_create()
 
 
 @socketio.on('input image', namespace='/test')

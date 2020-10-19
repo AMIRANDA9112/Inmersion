@@ -38,8 +38,8 @@ class Makeup_artist(object):
 
         im = 1
 
-        aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
-        parameters = aruco.DetectorParameters_create()
+        aruco_dict = ARUCO6
+        parameters = ARUCO_P
         pts = deque(maxlen=4)
 
         a1, b1, c1 = image.shape
