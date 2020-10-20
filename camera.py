@@ -18,7 +18,7 @@ class Camera(object):
         self.face_detector = dlib.get_frontal_face_detector()
         self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
         self.handetector = dlib.fhog_object_detector('./resources/HandDetector.svm')
-        self.pts = deque(maxlen=4)
+        self.pts = deque(maxlen=2)
 
         thread = threading.Thread(target=self.keep_processing, args=())
         thread.daemon = True
