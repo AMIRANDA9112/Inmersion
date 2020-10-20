@@ -16,8 +16,8 @@ class Camera(object):
         self.makeup_artist = makeup_artist
         self.face_detector = dlib.get_frontal_face_detector()
         self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
-        self.aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
-        self.parameters = aruco.DetectorParameters_create()
+        self.handetector = dlib.fhog_object_detector('../resources/HandDetector.svm')
+        self.pts = deque(maxlen=4)
 
         thread = threading.Thread(target=self.keep_processing, args=())
         thread.daemon = True
@@ -33,9 +33,11 @@ class Camera(object):
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
         input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-        output_img = self.makeup_artist.apply_makeup(input_str, self.face_detector, self.landmark_detector, self.aruco_dict, self.parameters)
+        output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.pts, self.face_detector, self.landmark_detector)
 
-        im_bytes = output_img.tobytes()
+        self.pts = output_img[1]
+
+        im_bytes = output_img[0].tobytes()
 
         imgf = base64.b64encode(im_bytes)
 

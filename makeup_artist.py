@@ -7,6 +7,7 @@ from threading import Thread
 import numpy as np
 import cv2.aruco as aruco
 from collections import deque
+from __future__ import print_function
 
 
 class Makeup_artist(object):
@@ -19,10 +20,11 @@ class Makeup_artist(object):
                 r[0] = b - r[0]
         return part_face
 
-    def apply_makeup(self, image, face, landmark, aruco_dict, parameters):
+    def apply_makeup(self, handdetector, pts, image, face, landmark):
 
         detector = face
         predictor = landmark
+        handpredictor = handdetector
 
         (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
         (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
@@ -36,11 +38,7 @@ class Makeup_artist(object):
         bk = (0, 0, 0)
         wt = (255, 255, 255)
 
-        im = 1
 
-
-
-        pts = deque(maxlen=4)
 
         a1, b1, c1 = image.shape
 
@@ -48,6 +46,7 @@ class Makeup_artist(object):
 
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
+        handrects = handpredictor(gray, 1)
         rects = detector(gray, 1)
 
         corners, ids, _ = aruco.detectMarkers(image, aruco_dict, parameters=parameters)
@@ -69,7 +68,7 @@ class Makeup_artist(object):
 
             leftEyeHull = self.antimirror(b1, leftEyeHull)
 
-            rightEyeHul = self.antimirror(b1, rightEyeHull)
+            rightEyeHull = self.antimirror(b1, rightEyeHull)
 
             x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
             x1.start()
@@ -90,13 +89,13 @@ class Makeup_artist(object):
                 if c in [61, 62, 63, 64, 65, 66, 67, 68]:
                     cv2.circle(bg, ((b1 - x), y), 0, wt, -1)
 
-        if np.all(ids is not None):
+        if handrects:
 
-            for c in corners:
-                m1 = (c[0][0][0], c[0][0][1])
-                x2 = int(b1 - m1[0])
-                y2 = int(m1[1])
-                center = (x2, y2)
+            for (i, hrect) in enumerate(rects):
+                l = int(rect.left())
+                r = int(rect.right())
+                t = int(rect.top())
+                center = (round(l + ((r - l) / 2)), t)
                 pts.appendleft(center)
 
         for i in range(1, len(pts)):
@@ -109,4 +108,4 @@ class Makeup_artist(object):
 
         _, im_arr = cv2.imencode('.jpg', bg)  # im_arr: image in Numpy one-dim array format.
 
-        return im_arr
+        return im_arr, pts
