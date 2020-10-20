@@ -46,8 +46,6 @@ class Makeup_artist(object):
         handrects = handpredictor(gray, 1)
         rects = detector(gray, 1)
 
-        corners, ids, _ = aruco.detectMarkers(image, aruco_dict, parameters=parameters)
-
         for (i, rect) in enumerate(rects):
 
             shape = predictor(gray, rect)
@@ -88,7 +86,7 @@ class Makeup_artist(object):
 
         if handrects:
 
-            for (i, hrect) in enumerate(rects):
+            for (i, hrect) in enumerate(handrects):
                 l = int(rect.left())
                 r = int(rect.right())
                 t = int(rect.top())
