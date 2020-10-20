@@ -90,7 +90,7 @@ class Makeup_artist(object):
                 l = int(rect.left())
                 r = int(rect.right())
                 t = int(rect.top())
-                center = (round(l + ((r - l) / 2)), t)
+                center = ((b1 - round(l + ((r - l)) / 2)), t)
                 pts.appendleft(center)
 
         for i in range(1, len(pts)):
