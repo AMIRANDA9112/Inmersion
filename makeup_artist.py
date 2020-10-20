@@ -19,7 +19,7 @@ class Makeup_artist(object):
                 r[0] = b - r[0]
         return part_face
 
-    def apply_makeup(self, handdetector, pts, image, face, landmark):
+    def apply_makeup(self, image, handdetector, pts, face, landmark):
 
         detector = face
         predictor = landmark
