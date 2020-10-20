@@ -7,7 +7,6 @@ from threading import Thread
 import numpy as np
 import cv2.aruco as aruco
 from collections import deque
-from __future__ import print_function
 
 
 class Makeup_artist(object):
@@ -37,8 +36,6 @@ class Makeup_artist(object):
         bl = (255, 0, 0)
         bk = (0, 0, 0)
         wt = (255, 255, 255)
-
-
 
         a1, b1, c1 = image.shape
 

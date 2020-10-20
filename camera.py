@@ -7,6 +7,7 @@ import numpy as np
 import cv2
 import dlib
 import cv2.aruco as aruco
+from collections import deque
 
 
 class Camera(object):
