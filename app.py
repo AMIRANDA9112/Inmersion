@@ -67,7 +67,7 @@ def start_page():
 @app.route('/streaming', methods=['GET', 'POST'])
 def upload_file():
     file = request.files['file']
-    file = file.read()
+    file = file.raw.read()
     PIL_IMAGE = pdf2image.convert_from_bytes(file, dpi=200, fmt='png', thread_count=1, size=(640, 480))
     i = 0
     for image in PIL_IMAGE:
