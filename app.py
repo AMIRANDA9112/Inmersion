@@ -72,6 +72,7 @@ def upload_file():
                                              poppler_path=None)
     i = 0
     for image in PIL_IMAGE:
+        image = numpy.array(image)
         i += 1
     MAX = i
     return render_template('index.html')
