@@ -18,6 +18,7 @@ olefile
 opencv-python
 opencv-contrib-python
 Pillow
+pdf2image
 pybase64
 python-engineio
 python-socketio
