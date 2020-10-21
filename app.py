@@ -66,11 +66,11 @@ def start_page():
 
 @app.route('/streaming', methods=['POST'])
 def upload_file():
-    file = request.files['file']
-    PIL_IMAGE = pdf2image.convert_from_bytes(file, dpi=200, fmt='png', thread_count=1, size=(640, 480))
+    file = request.files['slides']
+    PIL_IMAGE = pdf2image.convert_from_bytes(slides, dpi=200, fmt='png', thread_count=1, size=(640, 480))
 
     i = 0
-    for image in pil_images:
+    for image in PIL_IMAGE:
         i += 1
     MAX = i
     return render_template('index.html')
