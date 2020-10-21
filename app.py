@@ -9,6 +9,7 @@ from country_list import countries_for_language
 import pdf2image
 import time
 import cv2
+import os
 
 
 app = Flask(__name__)
