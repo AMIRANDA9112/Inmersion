@@ -79,7 +79,7 @@ def upload_file():
     for image in pil_images:
         index += 1
     MAX = index
-    return inrender_template('upload_pag.html', slides=str(index))
+    return render_template('index.html', slides=str(index))
 
     # Save file
     # filename = 'static/' + file.filename
