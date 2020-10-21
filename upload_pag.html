@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <title>Upload Section</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+
+<div class = "container">
+    <div class = "starter-template">
+        <h1>Upload your slides</h1>
+        <p class = "lead"> Try uploading an image to see if a face is detected </p>
+        <p> Your slides need upload in .PDF Format, a page for eac slide </p>
+        <p> You only need put your palm hand in the low corners in the screen </p>
+        <p> By Project Inmerssion Team </p>
+    </div>
+</div>
+
+<header class="navbar">
+    <form action="/upload" method="post" enctype="multipart/form-data" >
+        <div align="center">
+            <label class="btn btn-default btn-file">
+                Browse <input type="file" name="PDF" style="display: none;">
+            </label>
+            <input type="submit" value="Upload your PDF" class="btn btn-primary">
+        </div>
+    </form>
+</header>
+
+<div class="text-center">
+    {% if init %}
+        {% if faceDetected %}
+            <div class="alert alert-success" style="margin-top:18px;">
+                <strong>Yes!</strong> {{ slides }} page(s) detected!
+            </div>
+            {% if slides %}
+                <div>
+                    <h1>done</h1>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-danger" style="margin-top:18px;">
+                <strong>Nope!</strong> No slides detect in pdf format
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+</body>
+</html>

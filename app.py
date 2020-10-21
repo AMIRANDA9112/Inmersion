@@ -6,6 +6,9 @@ from flask_socketio import SocketIO
 from camera import Camera
 from utils import base64_to_pil_image, pil_image_to_base64
 from country_list import countries_for_language
+import pdf2image
+import time
+import cv2
 
 
 app = Flask(__name__)
@@ -13,7 +16,12 @@ app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
-camera = Camera(Makeup_artist())
+UPLOAD_FOLDER = os.path.basename('uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+PIL_IMAGE = []
+PIL_IMAGE[0] = cv2.imread("./media/home1.png")
+MAX = 1
+camera = Camera(Makeup_artist(), PIL_IMAGE, MAX)
 
 
 @socketio.on('input image', namespace='/test')
@@ -52,6 +60,27 @@ def gen():
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/upload_page')
+def start_page():
+    """Slides upload section"""
+    return render_template('upload_pag.html')
+
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    file = request.files['slide']
+
+    PIL_IMAGE = pdf2image.convert_from_bytes(file, dpi=200, fmt='png', thread_count=1, size=(640, 480))
+    index = 1
+    for image in pil_images:
+        index += 1
+    MAX = index
+    return inrender_template('upload_pag.html', slides=str(index))
+
+    # Save file
+    # filename = 'static/' + file.filename
+    # file.save(filename)
 
 
 @app.route('/login', methods=['GET', 'POST'])
