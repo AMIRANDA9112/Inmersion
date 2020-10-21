@@ -64,11 +64,10 @@ def start_page():
     return render_template('upload_pag.html')
 
 
-@app.route('/streaming', methods=['POST'])
+@app.route('/streaming', methods=['GET', 'POST'])
 def upload_file():
     file = request.files['file']
     PIL_IMAGE = pdf2image.convert_from_bytes(file, dpi=200, fmt='png', thread_count=1, size=(640, 480))
-
     i = 0
     for image in PIL_IMAGE:
         i += 1
