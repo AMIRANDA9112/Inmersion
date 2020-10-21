@@ -42,12 +42,6 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/streaming')
-def index():
-    """Video streaming home page."""
-    return render_template('index.html')
-
-
 def gen():
     """Video streaming generator function."""
 
@@ -70,12 +64,11 @@ def start_page():
     return render_template('upload_pag.html')
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/streaming', methods=['POST'])
 def upload_file():
-
-    file = request.files['slide']
-
+    file = request.files['file']
     PIL_IMAGE = pdf2image.convert_from_bytes(file, dpi=200, fmt='png', thread_count=1, size=(640, 480))
+
     i = 0
     for image in pil_images:
         i += 1
