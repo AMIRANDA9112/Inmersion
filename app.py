@@ -71,6 +71,7 @@ def start_page():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+
     file = request.files['slide']
 
     PIL_IMAGE = pdf2image.convert_from_bytes(file, dpi=200, fmt='png', thread_count=1, size=(640, 480))
