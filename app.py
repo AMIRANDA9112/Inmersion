@@ -20,7 +20,8 @@ socketio = SocketIO(app)
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 PIL_IMAGE = []
-PIL_IMAGE[0] = cv2.imread("./media/home1.png")
+base_image = cv2.imread("./media/home1.png")
+PIL_IMAGE.append(base_image)
 MAX = 1
 camera = Camera(Makeup_artist(), PIL_IMAGE, MAX)
 
