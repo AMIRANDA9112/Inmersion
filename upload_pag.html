@@ -29,24 +29,5 @@
     </form>
 </header>
 
-<div class="text-center">
-    {% if init %}
-        {% if faceDetected %}
-            <div class="alert alert-success" style="margin-top:18px;">
-                <strong>Yes!</strong> {{ slides }} page(s) detected!
-            </div>
-            {% if slides %}
-                <div>
-                    <h1>done</h1>
-                </div>
-            {% endif %}
-        {% else %}
-            <div class="alert alert-danger" style="margin-top:18px;">
-                <strong>Nope!</strong> No slides detect in pdf format
-            </div>
-        {% endif %}
-    {% endif %}
-</div>
-
 </body>
 </html>
