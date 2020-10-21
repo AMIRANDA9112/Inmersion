@@ -22,7 +22,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 PIL_IMAGE = []
 base_image = cv2.imread("./media/home1.png")
 PIL_IMAGE.append(base_image)
-MAX = 1
+MAX = 0
 camera = Camera(Makeup_artist(), PIL_IMAGE, MAX)
 
 
@@ -63,6 +63,7 @@ def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+
 @app.route('/upload_page')
 def start_page():
     """Slides upload section"""
@@ -75,10 +76,10 @@ def upload_file():
     file = request.files['slide']
 
     PIL_IMAGE = pdf2image.convert_from_bytes(file, dpi=200, fmt='png', thread_count=1, size=(640, 480))
-    index = 0
+    i = 0
     for image in pil_images:
-        index += 1
-    MAX = index
+        i += 1
+    MAX = i
     return render_template('index.html')
 
     # Save file
