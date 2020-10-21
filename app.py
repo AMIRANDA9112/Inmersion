@@ -10,6 +10,7 @@ import pdf2image
 import time
 import cv2
 import os
+import numpy
 
 
 app = Flask(__name__)
