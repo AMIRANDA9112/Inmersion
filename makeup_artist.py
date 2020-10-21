@@ -29,7 +29,6 @@ class Makeup_artist(object):
         (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
         (mStart, mEnd) = face_utils.FACIAL_LANDMARKS_IDXS["mouth"]
 
-        index = 1
 
         bg = background
 
