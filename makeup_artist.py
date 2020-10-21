@@ -19,7 +19,7 @@ class Makeup_artist(object):
                 r[0] = b - r[0]
         return part_face
 
-    def apply_makeup(self, image, handdetector, pts, face, landmark, backgourn, count, max):
+    def apply_makeup(self, image, handdetector, pts, face, landmark, background, count, max):
 
         detector = face
         predictor = landmark
@@ -31,7 +31,7 @@ class Makeup_artist(object):
 
         index = 1
 
-        bg = cv2.imread("./Slides_user/page_" + str(index) + ".png")
+        bg = background
 
         gn = (0, 255, 0)
         rd = (0, 0, 255)
