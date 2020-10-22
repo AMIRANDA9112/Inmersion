@@ -1,6 +1,5 @@
 from camera import Camera
 import cv2
-from celery import Celery
 from country_list import countries_for_language
 from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO
