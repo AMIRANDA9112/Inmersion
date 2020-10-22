@@ -1,5 +1,4 @@
 click
-celery
 dlib
 enum-compat
 enum34
@@ -23,7 +22,6 @@ pdf2image
 pybase64
 python-engineio
 python-socketio
-redis
 scikit-learn
 six
 Werkzeug

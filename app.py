@@ -22,30 +22,7 @@ socketio = SocketIO(app)
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 camera = Camera(Makeup_artist())
-
-def make_celery(app):
-    celery = Celery(
-        app.import_name,
-        backend=app.config['CELERY_RESULT_BACKEND'],
-        broker=app.config['CELERY_BROKER_URL']
-    )
-    celery.conf.update(app.config)
-
-    class ContextTask(celery.Task):
-        def __call__(self, *args, **kwargs):
-            with app.app_context():
-                return self.run(*args, **kwargs)
-
-    celery.Task = ContextTask
-    return celery
-
-app.config.update(
-    CELERY_BROKER_URL='redis://localhost:6379',
-    CELERY_RESULT_BACKEND='redis://localhost:6379'
-)
-celery = make_celery(app)
 app.logger.addHandler(logging.StreamHandler(stdout))
-
 
 
 @socketio.on('input image', namespace='/test')
@@ -92,15 +69,15 @@ def start_page():
     return render_template('upload_pag.html')
 
 
-@app.route('/streaming', methods=['GET', 'POST'])
+@app.route('/upload', methods=['POST'])
 def upload_file():
     file = request.files['file']
     file = file.raw.read()
-    pil_image = to_pil.delay(file)
-    camera.max = save_img.delay(pil_image)
+    pil_image = to_pil(file)
+    camera.max = save_img(pil_image)
     camera.charge = True
 
-    return render_template('index.html')
+    return render_template('upload_pag.html')
 
 
 @celery.task
