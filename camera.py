@@ -21,7 +21,7 @@ class Camera(object):
         self.pts = deque(maxlen=2)
         self.count = 0
         self.max = 0
-        self.charge = false
+        self.charge = False
 
 
         thread = threading.Thread(target=self.keep_processing, args=())
