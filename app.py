@@ -1,30 +1,33 @@
-from sys import stdout
-from makeup_artist import Makeup_artist
-import logging
+from camera import Camera
+import celery
+import cv2
+from country_list import countries_for_language
 from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO
-from camera import Camera
-from utils import base64_to_pil_image, pil_image_to_base64
-from country_list import countries_for_language
-import pdf2image
-import time
-import cv2
-import os
+import logging
+from makeup_artist import Makeup_artist
 import numpy
+import os
+import pdf2image
+from sys import stdout
+import time
+import threading
+from utils import base64_to_pil_image, pil_image_to_base64
 
 
 app = Flask(__name__)
+app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
+app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
+
+celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+celery.conf.update(app.config)
 app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-PIL_IMAGE = []
-base_image = cv2.imread("./media/home1.png")
-PIL_IMAGE.append(base_image)
-MAX = 0
-camera = Camera(Makeup_artist(), PIL_IMAGE, MAX)
+camera = Camera(Makeup_artist())
 
 
 @socketio.on('input image', namespace='/test')
@@ -69,14 +72,27 @@ def start_page():
 def upload_file():
     file = request.files['file']
     file = file.raw.read()
-    PIL_IMAGE = pdf2image.convert_from_bytes(file, dpi=200, fmt='png', thread_count=1, size=(640, 480),
-                                             poppler_path=None)
-    i = 0
-    for image in PIL_IMAGE:
-        image = numpy.array(image)
-        i += 1
-    MAX = i
+    pil_image = to_pil.delay(file)
+    camera.max = save_img.delay(pil_image)
+    camera.charge = True
+
     return render_template('index.html')
+
+
+@celery.task
+def to_pil(slides):
+    slides = pdf2image.convert_from_bytes(file, dpi=200, fmt='png', thread_count=1,
+                                          size=(640, 480), poppler_path=None)
+    return slides
+
+
+@celery.task
+def save_img(pil_images):
+    index = 1
+    for image in pil_images:
+        image.save("/tmp/page_" + str(index) + ".png")
+        index += 1
+    return index
 
     # Save file
     # filename = 'static/' + file.filename

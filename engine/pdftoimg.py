@@ -22,6 +22,7 @@ def pdftoimg():
     print("Time taken : " + str(time.time() - start_time))
     return pil_images
 
+
 def save_img(pil_images):
     index = 1
     for image in pil_images:

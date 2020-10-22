@@ -1,4 +1,5 @@
 click
+celery
 dlib
 enum-compat
 enum34

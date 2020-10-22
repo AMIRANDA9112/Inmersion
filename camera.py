@@ -11,7 +11,7 @@ from collections import deque
 
 
 class Camera(object):
-    def __init__(self, makeup_artist, slides, max):
+    def __init__(self, makeup_artist):
         self.to_process = []
         self.to_output = []
         self.makeup_artist = makeup_artist
@@ -19,9 +19,10 @@ class Camera(object):
         self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
         self.handetector = dlib.fhog_object_detector('./resources/HandDetector.svm')
         self.pts = deque(maxlen=2)
-        self.slides = slides
         self.count = 0
-        self.max = max
+        self.max = 0
+        self.charge = false
+
 
         thread = threading.Thread(target=self.keep_processing, args=())
         thread.daemon = True
@@ -37,9 +38,13 @@ class Camera(object):
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
         input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-        background = self.slides[self.count]
+        background = cv2.imread("./media/home1.png")
 
-        output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.pts, self.face_detector, self.landmark_detector, background, self.count, self.max)
+        if self.charge:
+            background = cv2.imread("/tmp/page_" + str(self.count) + ".png")
+
+        output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.pts, self.face_detector,
+                                                     self.landmark_detector, background, self.count, self.max)
 
         self.count = output_img[2]
 
