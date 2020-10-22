@@ -23,7 +23,6 @@ class Camera(object):
         self.max = 0
         self.charge = False
 
-
         thread = threading.Thread(target=self.keep_processing, args=())
         thread.daemon = True
         thread.start()
@@ -42,6 +41,9 @@ class Camera(object):
 
         if self.charge:
             background = cv2.imread("/tmp/page_" + str(self.count) + ".png")
+            print("image read")
+        else:
+            print"image no read"
 
         output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.pts, self.face_detector,
                                                      self.landmark_detector, background, self.count, self.max)

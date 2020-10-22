@@ -86,7 +86,7 @@ def to_pil(slides):
 
 
 def save_img(pil_images):
-    index = 1
+    index = 0
     for image in pil_images:
         image.save("/tmp/page_" + str(index) + ".png")
         index += 1
