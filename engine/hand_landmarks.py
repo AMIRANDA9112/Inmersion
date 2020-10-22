@@ -5,7 +5,6 @@ import imutils
 import cv2
 import dlib
 
-
 cap = cv2.VideoCapture(0)
 
 detector = dlib.fhog_object_detector('../resources/HandDetector.svm')
@@ -23,10 +22,12 @@ while cap.isOpened():
     rects = detector(gray, 1)
 
     for (i, rect) in enumerate(rects):
-        shape = predictor(gray, rect)
-        shape = face_utils.shape_to_np(shape)
-        for (x, y) in shape:
-            cv2.circle(image, (x, y), 1, (0, 255, 0), -1)
+        l = int(rect.left())
+        r = int(rect.right())
+        t = int(rect.top())
+        center = (round(l + ((r - l)/2)), t)
+
+        print(center)
 
     cv2.imshow('Recognition Laboratory', image)
 

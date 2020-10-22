@@ -9,6 +9,7 @@ from country_list import countries_for_language
 from flask import session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user_data.db'
 db = SQLAlchemy(app)
@@ -125,6 +126,10 @@ def signup():
             return render_template("signup.html", countries=countries,
                                    success="Successful Registration")    
     return render_template('signup.html', countries=countries)
+
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    return render_template('about.html')
 
 
 if __name__ == '__main__':
