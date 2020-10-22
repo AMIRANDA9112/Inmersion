@@ -90,6 +90,7 @@ def save_img(pil_images):
     for image in pil_images:
         image.save("/tmp/page_" + str(index) + ".png")
         index += 1
+        print("chargue slide No: ", index)
     return index
 
     # Save file
