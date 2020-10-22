@@ -1,5 +1,4 @@
 from camera import Camera
-import celery
 import cv2
 from country_list import countries_for_language
 from flask import Flask, render_template, Response, request
@@ -60,6 +59,12 @@ def gen():
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/streaming')
+def index():
+    """Video streaming home page."""
+    return render_template('index.html')
 
 
 @app.route('/upload_page')
