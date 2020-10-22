@@ -1,6 +1,6 @@
 from camera import Camera
 import cv2
-import celery
+from celery import Celery
 from country_list import countries_for_language
 from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO
@@ -16,18 +16,36 @@ from utils import base64_to_pil_image, pil_image_to_base64
 
 
 app = Flask(__name__)
-app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
-app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
 
-
-celery = celery.Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-celery.conf.update(app.config)
-app.logger.addHandler(logging.StreamHandler(stdout))
 
 socketio = SocketIO(app)
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 camera = Camera(Makeup_artist())
+
+def make_celery(app):
+    celery = Celery(
+        app.import_name,
+        backend=app.config['CELERY_RESULT_BACKEND'],
+        broker=app.config['CELERY_BROKER_URL']
+    )
+    celery.conf.update(app.config)
+
+    class ContextTask(celery.Task):
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return self.run(*args, **kwargs)
+
+    celery.Task = ContextTask
+    return celery
+
+app.config.update(
+    CELERY_BROKER_URL='redis://localhost:6379',
+    CELERY_RESULT_BACKEND='redis://localhost:6379'
+)
+celery = make_celery(app)
+app.logger.addHandler(logging.StreamHandler(stdout))
+
 
 
 @socketio.on('input image', namespace='/test')
@@ -87,7 +105,7 @@ def upload_file():
 
 @celery.task
 def to_pil(slides):
-    slides = pdf2image.convert_from_bytes(file, dpi=200, fmt='png', thread_count=1,
+    slides = pdf2image.convert_from_bytes(slides, dpi=200, fmt='png', thread_count=1,
                                           size=(640, 480), poppler_path=None)
     return slides
 
