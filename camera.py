@@ -43,7 +43,7 @@ class Camera(object):
             background = cv2.imread("/tmp/page_" + str(self.count) + ".png")
             print("image read")
         else:
-            print"image no read"
+            print("image no read")
 
         output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.pts, self.face_detector,
                                                      self.landmark_detector, background, self.count, self.max)
