@@ -80,14 +80,12 @@ def upload_file():
     return render_template('upload_pag.html')
 
 
-@celery.task
 def to_pil(slides):
     slides = pdf2image.convert_from_bytes(slides, dpi=200, fmt='png', thread_count=1,
                                           size=(640, 480), poppler_path=None)
     return slides
 
 
-@celery.task
 def save_img(pil_images):
     index = 1
     for image in pil_images:
