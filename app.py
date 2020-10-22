@@ -18,15 +18,16 @@ from utils import base64_to_pil_image, pil_image_to_base64
 app = Flask(__name__)
 app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
 app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
+app.config['SECRET_KEY'] = 'secret!'
+app.config['DEBUG'] = True
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 celery = celery.Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 celery.conf.update(app.config)
 app.logger.addHandler(logging.StreamHandler(stdout))
-app.config['SECRET_KEY'] = 'secret!'
-app.config['DEBUG'] = True
 socketio = SocketIO(app)
 UPLOAD_FOLDER = os.path.basename('uploads')
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 camera = Camera(Makeup_artist())
 
 
