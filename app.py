@@ -39,20 +39,7 @@ class User(db.Model):
     password = db.Column(db.String)
     country = db.Column(db.String)
 
-
-db.create_all()
-
-
-class User(db.Model):
-    """Model for Users"""
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String)
-    last_name = db.Column(db.String)
-    email = db.Column(db.String, unique=True)
-    password = db.Column(db.String)
-    country = db.Column(db.String)
-
-
+    
 db.create_all()
 
 
@@ -70,7 +57,6 @@ def test_connect():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('home.html')
-
 
 def gen():
     """Video streaming generator function."""
@@ -186,11 +172,6 @@ def signup():
             return render_template("signup.html", countries=countries,
                                     success="Successful Registration")    
     return render_template('signup.html', countries=countries)
-
-
-@app.route('/about', methods=['GET', 'POST'])
-def about():
-    return render_template('about.html')
 
 
 @app.route('/about', methods=['GET', 'POST'])
