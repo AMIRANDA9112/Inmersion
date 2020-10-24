@@ -80,20 +80,23 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/upload_page')
+@app.route('/upload')
 def start_page():
     """Slides upload section"""
     return render_template('upload_pag.html')
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload_page', methods=['GET', 'POST'])
 def upload_file():
-    file = request.files['file']
-    file = file.raw.read()
-    pil_image = to_pil(file)
-    camera.max = save_img(pil_image)
-    camera.charge = True
-
+    if request.method == "POST":
+        #file = request.files['file']
+        file = request.form.get("file")
+        #file = req["file"]
+        #file = file.raw.read()
+        #pil_image = to_pil(file)
+        #camera.max = save_img(pil_image)
+        #camera.charge = True
+        return render_template('index.html')
     return render_template('upload_pag.html')
 
 
