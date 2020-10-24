@@ -38,8 +38,7 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     country = db.Column(db.String)
-
-    
+   
 db.create_all()
 
 
