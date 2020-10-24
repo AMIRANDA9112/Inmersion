@@ -3,6 +3,9 @@ import cv2
 from country_list import countries_for_language
 from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO
+from flask import Flask, render_template, Response, request, session, redirect, url_for
+from flask_socketio import SocketIO
+from flask_sqlalchemy import SQLAlchemy
 import logging
 from makeup_artist import Makeup_artist
 import numpy
@@ -27,6 +30,8 @@ app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
+
+
 
 class User(db.Model):
     """Model for Users"""
