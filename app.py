@@ -89,7 +89,7 @@ def start_page():
 def upload_file():
     if request.method == "POST":
         #file = request.files['file']
-        file = request.form.get("file")
+        #file = request.form.get("file")
         #file = req["file"]
         #file = file.raw.read()
         #pil_image = to_pil(file)
