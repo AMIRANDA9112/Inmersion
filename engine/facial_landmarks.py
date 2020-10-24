@@ -47,7 +47,7 @@ nexty = round((a1 / 100) * 60)
 nextx = round((b1 / 100) * 60)
 
 center = None
-r = 15
+r = 8
 r1 = 0
 r2 = 0
 

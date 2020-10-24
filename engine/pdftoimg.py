@@ -2,7 +2,7 @@ import pdf2image
 import time
 
 # DECLARE CONSTANTS
-PDF_PATH = "demo.pdf"
+PDF_PATH = "/home/amiranda/Escritorio/cv_dl_resource_guide.pdf"
 DPI = 200
 OUTPUT_FOLDER = None
 FIRST_PAGE = None
@@ -21,6 +21,19 @@ def pdftoimg():
                                              use_cropbox=USE_CROPBOX, strict=STRICT)
     print("Time taken : " + str(time.time() - start_time))
     return pil_images
+
+
+def save_img(pil_images):
+    index = 1
+    for image in pil_images:
+        print(image)
+        index += 1
+
+
+pdf = pdftoimg()
+save_img(pdf)
+
+
 
 
 

@@ -18,7 +18,10 @@ class Camera(object):
         self.face_detector = dlib.get_frontal_face_detector()
         self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
         self.handetector = dlib.fhog_object_detector('./resources/HandDetector.svm')
-        self.pts = deque(maxlen=4)
+        self.pts = deque(maxlen=2)
+        self.count = 0
+        self.max = 0
+        self.charge = False
 
         thread = threading.Thread(target=self.keep_processing, args=())
         thread.daemon = True
@@ -34,7 +37,18 @@ class Camera(object):
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
         input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-        output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.pts, self.face_detector, self.landmark_detector)
+        background = cv2.imread("./media/home1.png")
+
+        if self.charge:
+            background = cv2.imread("/tmp/page_" + str(self.count) + ".png")
+            print("image read")
+        else:
+            print("image no read")
+
+        output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.pts, self.face_detector,
+                                                     self.landmark_detector, background, self.count, self.max)
+
+        self.count = output_img[2]
 
         self.pts = output_img[1]
 

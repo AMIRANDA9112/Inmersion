@@ -19,7 +19,7 @@ class Makeup_artist(object):
                 r[0] = b - r[0]
         return part_face
 
-    def apply_makeup(self, image, handdetector, pts, face, landmark):
+    def apply_makeup(self, image, handdetector, pts, face, landmark, background, count, max):
 
         detector = face
         predictor = landmark
@@ -29,7 +29,7 @@ class Makeup_artist(object):
         (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
         (mStart, mEnd) = face_utils.FACIAL_LANDMARKS_IDXS["mouth"]
 
-        bg = cv2.imread("./media/home1.png")
+        bg = background
 
         gn = (0, 255, 0)
         rd = (0, 0, 255)
@@ -39,7 +39,17 @@ class Makeup_artist(object):
 
         a1, b1, c1 = image.shape
 
+        beforey = round((a1 / 100) * 60)
+        beforex = round((b1 / 100) * 40)
+
+        nexty = round((a1 / 100) * 60)
+        nextx = round((b1 / 100) * 60)
+
+        im = count
         center = None
+        r = 8
+        r1 = 0
+        r2 = 0
 
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -69,8 +79,8 @@ class Makeup_artist(object):
             x1.start()
             x2 = Thread(target=cv2.drawContours, args=(bg, [leftEyeHull], 0, bl, -1))
             x2.start()
-            x3 = Thread(target=cv2.drawContours, args=(bg, [rightEyeHull], 0, bl, -1))
-            x3.start()
+            axix = Thread(target=cv2.drawContours, args=(bg, [rightEyeHull], 0, bl, -1))
+            axix.start()
 
             c = 0
             for (x, y) in shape:
@@ -90,7 +100,7 @@ class Makeup_artist(object):
                 l = int(hrect.left())
                 r = int(hrect.right())
                 t = int(hrect.top())
-                center = ((b1 - round(l + ((r - l)) / 2)), t)
+                center = (b1 - round(l + (r - l) / 2), t)
                 pts.appendleft(center)
 
         for i in range(1, len(pts)):
@@ -103,4 +113,49 @@ class Makeup_artist(object):
 
         _, im_arr = cv2.imencode('.jpg', bg)  # im_arr: image in Numpy one-dim array format.
 
-        return im_arr, pts
+        r3 = 0
+        if center:
+            axix, axiy = center
+
+            if beforex < axix < nextx:
+                r1 = 0
+
+            if 0 < axix < beforex or nextx < axix < b1:
+                if beforey > axiy:
+                    r1 = 0
+
+            if nextx < axix < b1 and nexty < axiy < a1:
+
+                r3 = 1
+                r1 += 1
+
+                if im <= max and r1 == 1 and r2 == 0:
+                    r1 = 0
+                    im += 1
+                    r2 = 1
+
+                if im <= max and r1 > r:
+                    r1 = 0
+                    r2 = 1
+                    im += 1
+
+            # Laser section
+
+            if 0 < axix < beforex and beforey < axiy < a1:
+                r3 = 1
+                r1 += 1
+
+                if im > 1 and r1 == 1 and r2 == 0:
+                    r1 = 0
+                    r2 = 1
+                    im -= 1
+
+                if im > 1 and r1 > r:
+                    r1 = 0
+                    r2 = 1
+                    im -= 1
+
+            if r2 == 1 and r3 == 0:
+                r2 = 0
+
+        return im_arr, pts, im

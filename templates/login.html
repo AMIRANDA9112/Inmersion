@@ -19,7 +19,11 @@
   }
   .nav-item{
     font-size: 20px;
-  }   
+  }
+  .font{
+    font-family: "Roboto";
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.671);
 </style>
 
 <body class="bg-light">
@@ -67,8 +71,15 @@
       <button type="submit" class="btn btn-primary">Login</button>
     </form><br>
     {% if message_success %}
-    <div class="alert alert-success">
-      <strong>{{ message_success }}</strong>
+    <div class="alert alert-success alert-dismissible">
+      <strong class=>{{ message_success }}</strong>
+    </div>
+    <a href="streaming" class="btn btn-block bg-danger text-light font w3-border-black">
+      Start using the extension</a>.
+    {% endif %}
+    {% if message_failure %}
+    <div class="alert alert-danger">
+      <strong>{{ message_failure }}</strong>
     </div>
     {% endif %}
   </div>

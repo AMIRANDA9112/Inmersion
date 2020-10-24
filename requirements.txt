@@ -18,10 +18,11 @@ olefile
 opencv-python
 opencv-contrib-python
 Pillow
+pdf2image
 pybase64
 python-engineio
 python-socketio
-redis
 scikit-learn
 six
 Werkzeug
+flask_sqlalchemy
