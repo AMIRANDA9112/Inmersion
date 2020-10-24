@@ -4,7 +4,6 @@ from country_list import countries_for_language
 from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO
 from flask import Flask, render_template, Response, request, session, redirect, url_for
-from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 import logging
 from makeup_artist import Makeup_artist
@@ -17,12 +16,12 @@ import threading
 from utils import base64_to_pil_image, pil_image_to_base64
 
 
+
 app = Flask(__name__)
 
 
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user_data.db'
 db = SQLAlchemy(app)
 app.logger.addHandler(logging.StreamHandler(stdout))
@@ -31,6 +30,18 @@ app.config['DEBUG'] = True
 socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
 
+
+class User(db.Model):
+    """Model for Users"""
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String)
+    last_name = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
+    password = db.Column(db.String)
+    country = db.Column(db.String)
+
+
+db.create_all()
 
 
 class User(db.Model):
@@ -130,7 +141,6 @@ def signin():
             return render_template('login.html', message=message)
         if not password:
             return render_template('login.html', message_p='Please fill out this field.')
-
         user = User.query.filter_by(email=email, password=password).first()
         if user is None:
             return render_template("login.html", message_failure="Wrong Credentials. Please Try Again.")
@@ -175,8 +185,13 @@ def signup():
         finally:
             db.session.close()
             return render_template("signup.html", countries=countries,
-                                   success="Successful Registration")
+                                    success="Successful Registration")    
     return render_template('signup.html', countries=countries)
+
+
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    return render_template('about.html')
 
 
 @app.route('/about', methods=['GET', 'POST'])

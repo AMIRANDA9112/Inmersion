@@ -25,3 +25,4 @@ python-socketio
 scikit-learn
 six
 Werkzeug
+flask_sqlalchemy

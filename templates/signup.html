@@ -22,7 +22,7 @@
   }
   .nav-item{
     font-size: 20px;
-  }   
+  }
 </style>
 <style>
 
@@ -46,23 +46,39 @@
           <a class="nav-link" href="signup">Sign Up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About Us</a>
-        </li>    
+          <a class="nav-link" href="about">About Us</a>
+        </li>
       </ul>
-    </div>  
+    </div>
   </nav>
   <br><br>
     <!-- Header -->
   <div class="container mt-3">
     <h1 class="text-primary">Sign Up <span class="badge badge-success">Free!</span></h1>
       <br>
+      {% if feedback %}
+    <div class="alert alert-danger">
+      <strong>Missing fields for:</strong>{{ feedback }}
+    </div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success">
+      <strong>{{ success }}</strong>, you can:
+      <a href="login" class="alert-link">Sign in now</a>.
+    </div>
+    {% endif %}
+    {% if dont_match %}
+    <div class="alert alert-danger">
+      <strong>{{ dont_match }}</strong>
+    </div>
+    {% endif %}
         <!-- Form beginning -->
     <form action="/signup" method="POST">
           <!-- Name and Last name -->
         <div class="form-row">
           <div class="col">
             <label for="name" class="mb-2 mr-sm-2"><h4><small>First name<span> *</span></small></h4></label>
-            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+            <input type="text" class="form-control" id="name" placeholder="Enter name" name="First name">
             {% if name %}
               <p class="text-danger"><small>{{ name }}</small></p>
             {% else %}
@@ -71,29 +87,29 @@
           </div>
           <div class="col">
             <label for="lname" class="mb-2 mr-sm-2"><h4><small>Last name<span> *</span></small></h4></label>
-            <input type="text" class="form-control" placeholder="Enter last name" name="lname">
+            <input type="text" class="form-control" placeholder="Enter last name" name="Last name">
           </div>
         </div>
          <!-- Email and comfirm Email -->
          <div class="form-row">
           <div class="col">
             <label for="email" class="mb-2 mr-sm-2"><h4><small>Email<span> *</span></small></h4></label>
-            <input type="text" class="form-control" id="name" placeholder="Enter email" name="email">
+            <input type="text" class="form-control" id="name" placeholder="Enter email" name="Email">
           </div>
           <div class="col">
             <label for="email1" class="mb-2 mr-sm-2"><h4><small>Confirm email<span> *</span></small></h4></label>
-            <input type="text" class="form-control" placeholder="Enter email" name="email1">
+            <input type="text" class="form-control" placeholder="Enter email" name="Confirm email">
           </div>
         </div><br>
         <!-- Pwd and comfirm Pwd -->
         <div class="form-row">
           <div class="col">
             <label for="pwd" class="mb-2 mr-sm-2"><h4><small>Password<span> *</span></small></h4></label>
-            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="Password">
           </div>
           <div class="col">
             <label for="pwd1" class="mb-2 mr-sm-2"><h4><small>Confirm password<span> *</span></small></h4></label>
-            <input type="password" class="form-control" placeholder="Enter password" name="pwd1">
+            <input type="password" class="form-control" placeholder="Enter password" name="Confirm password">
           </div>
         </div><br>
         <!-- Country input -->
@@ -133,10 +149,17 @@
           </div><br>  
         <!-- Button -->
           <button type="submit" class="btn btn-primary mx-auto d-block btn-lg">Submit</button>
-    </form>
+    </form><br>
   </div>
 
-    
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://project-inmersion.herokuapp.com/">project-inmersion</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 </body>
 <br><br>
 </html>
