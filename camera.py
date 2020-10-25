@@ -6,14 +6,10 @@ import base64
 import numpy as np
 import cv2
 import dlib
-import cv2.aruco as aruco
 from collections import deque
-from rq import Queue
-from worker import conn
 
 
 class Camera(object):
-
     def __init__(self, makeup_artist):
         self.to_process = []
         self.to_output = []
@@ -25,10 +21,10 @@ class Camera(object):
         self.count = 0
         self.max = 0
         self.charge = False
-        q = Queue(connection=conn)
 
-        q.enqueue(self.keep_processing)
-
+        thread = threading.Thread(target=self.keep_processing, args=())
+        thread.daemon = True
+        thread.start()
 
     def process_one(self):
         if not self.to_process:
