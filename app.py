@@ -13,11 +13,12 @@ from sys import stdout
 import time
 import threading
 from utils import base64_to_pil_image, pil_image_to_base64
+from rq import Queue
+from worker import conn
 
-
+q = Queue(connection=conn)
 
 app = Flask(__name__)
-
 
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -27,7 +28,8 @@ app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
-camera = Camera(Makeup_artist())
+
+camera = q.enqueue(Camera, Makeup_artist())
 
 
 class User(db.Model):
@@ -39,7 +41,7 @@ class User(db.Model):
     password = db.Column(db.String)
     country = db.Column(db.String)
 
-    
+
 db.create_all()
 
 
@@ -57,6 +59,7 @@ def test_connect():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('home.html')
+
 
 def gen():
     """Video streaming generator function."""
@@ -171,7 +174,7 @@ def signup():
         finally:
             db.session.close()
             return render_template("signup.html", countries=countries,
-                                    success="Successful Registration")    
+                                   success="Successful Registration")
     return render_template('signup.html', countries=countries)
 
 

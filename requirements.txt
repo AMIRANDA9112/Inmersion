@@ -22,6 +22,8 @@ pdf2image
 pybase64
 python-engineio
 python-socketio
+redis
+rq
 scikit-learn
 six
 Werkzeug
