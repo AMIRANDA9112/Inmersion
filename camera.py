@@ -32,7 +32,7 @@ class Camera(object):
         if not self.to_process:
             return
 
-        input_str = self.to_process.pop()
+        input_str = self.to_process.popleft()
 
         im_bytes = base64.b64decode(input_str)
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
@@ -75,4 +75,4 @@ class Camera(object):
     def get_frame(self):
         while not self.to_output:
             sleep(0.02)
-        return self.to_output.pop()
+        return self.to_output.popleft()
