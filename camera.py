@@ -50,9 +50,9 @@ class Camera(object):
                                                      self.landmark_detector, background, self.count, self.max,
                                                      self.r1, self.r2)
 
-        self.r2 = outpur_img[4]
+        self.r2 = output_img[4]
 
-        self.r1 = outpur_img[3]
+        self.r1 = output_img[3]
 
         self.count = output_img[2]
 
