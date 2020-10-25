@@ -11,7 +11,7 @@ from collections import deque
 
 class Camera(object):
     def __init__(self, makeup_artist):
-        self.to_process = None[]
+        self.to_process = None
         self.to_output = None
         self.makeup_artist = makeup_artist
         self.face_detector = dlib.get_frontal_face_detector()
@@ -73,6 +73,4 @@ class Camera(object):
         self.to_process = input
 
     def get_frame(self):
-        while not self.to_output:
-            sleep(0.05)
         return self.to_output
