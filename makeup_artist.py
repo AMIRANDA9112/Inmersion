@@ -158,4 +158,12 @@ class Makeup_artist(object):
             if r2 == 1 and r3 == 0:
                 r2 = 0
 
+        print("fps: ", r)
+        print("conteo fps", r1)
+        print("diapositiva no: ", im)
+        print("diaposoitiva max : ", max)
+        print("condicion de bloqueo 1: ", r2)
+        print("condicion de bloqueo: ", r3)
+
+
         return im_arr, pts, im
