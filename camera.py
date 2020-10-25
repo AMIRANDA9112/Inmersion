@@ -30,7 +30,7 @@ class Camera(object):
 
     def process_one(self):
 
-        if self.to_proces is not None:
+        if self.to_process is not None:
 
             print("positovo para input")
 
