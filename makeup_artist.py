@@ -19,7 +19,7 @@ class Makeup_artist(object):
                 r[0] = b - r[0]
         return part_face
 
-    def apply_makeup(self, image, handdetector, pts, face, landmark, background, count, max):
+    def apply_makeup(self, image, handdetector, pts, face, landmark, background, count, max, r1, r2):
 
         detector = face
         predictor = landmark
@@ -48,8 +48,6 @@ class Makeup_artist(object):
         im = count
         center = None
         r = 8
-        r1 = 0
-        r2 = 0
 
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -165,5 +163,4 @@ class Makeup_artist(object):
         print("condicion de bloqueo 1: ", r2)
         print("condicion de bloqueo: ", r3)
 
-
-        return im_arr, pts, im
+        return im_arr, pts, im, r1, r2

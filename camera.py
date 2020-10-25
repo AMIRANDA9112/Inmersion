@@ -20,6 +20,8 @@ class Camera(object):
         self.pts = deque(maxlen=2)
         self.count = 0
         self.max = 0
+        self.r1 = 0
+        self.r2 = 0
         self.charge = False
 
         thread = threading.Thread(target=self.keep_processing, args=())
@@ -45,7 +47,12 @@ class Camera(object):
             print("image no read")
 
         output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.pts, self.face_detector,
-                                                     self.landmark_detector, background, self.count, self.max)
+                                                     self.landmark_detector, background, self.count, self.max,
+                                                     self.r1, self.r2)
+
+        self.r2 = outpur_img[4]
+
+        self.r1 = outpur_img[3]
 
         self.count = output_img[2]
 
