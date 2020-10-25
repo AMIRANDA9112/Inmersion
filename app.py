@@ -13,10 +13,7 @@ from sys import stdout
 import time
 import threading
 from utils import base64_to_pil_image, pil_image_to_base64
-from rq import Queue
-from worker import conn
 
-q = Queue(connection=conn)
 
 app = Flask(__name__)
 
@@ -29,7 +26,7 @@ app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
 
-camera = q.enqueue(Camera, Makeup_artist())
+camera = q.enqueue(Camera.Makeup_artist())
 
 
 class User(db.Model):
