@@ -145,12 +145,12 @@ class Makeup_artist(object):
                 r3 = 1
                 r1 += 1
 
-                if im > 1 and r1 == 1 and r2 == 0:
+                if im > 0 and r1 == 1 and r2 == 0:
                     r1 = 0
                     r2 = 1
                     im -= 1
 
-                if im > 1 and r1 > r:
+                if im > 0 and r1 > r:
                     r1 = 0
                     r2 = 1
                     im -= 1
