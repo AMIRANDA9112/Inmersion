@@ -11,8 +11,8 @@ from collections import deque
 
 class Camera(object):
     def __init__(self, makeup_artist):
-        self.to_process = []
-        self.to_output = []
+        self.to_process = deque(maxlen=2)
+        self.to_output = deque(maxlen=2)
         self.makeup_artist = makeup_artist
         self.face_detector = dlib.get_frontal_face_detector()
         self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
