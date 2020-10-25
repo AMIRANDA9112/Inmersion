@@ -98,9 +98,9 @@ class Makeup_artist(object):
 
             for (i, hrect) in enumerate(handrects):
                 l = int(hrect.left())
-                r = int(hrect.right())
+                lr = int(hrect.right())
                 t = int(hrect.top())
-                center = (b1 - round(l + (r - l) / 2), t)
+                center = (b1 - round(l + (lr - l) / 2), t)
                 pts.appendleft(center)
 
         for i in range(1, len(pts)):
