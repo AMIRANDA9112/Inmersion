@@ -29,14 +29,21 @@ class Camera(object):
         thread.start()
 
     def process_one(self):
-        if not self.to_process:
-            return
 
-        input_str = self.to_process
+        if self.to_proces is not None:
 
-        im_bytes = base64.b64decode(input_str)
-        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
-        input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
+            print("positovo para input")
+
+            input_str = self.to_process
+
+            im_bytes = base64.b64decode(input_str)
+            im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
+            input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
+
+        else:
+            print("negativo para input")
+
+            input_str = cv2.imread("./media/home1.png")
 
         background = cv2.imread("./media/home1.png")
 
