@@ -11,8 +11,8 @@ from collections import deque
 
 class Camera(object):
     def __init__(self, makeup_artist):
-        self.to_process = None
-        self.to_output = None
+        self.to_process = []
+        self.to_output = []
         self.makeup_artist = makeup_artist
         self.face_detector = dlib.get_frontal_face_detector()
         self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
@@ -29,21 +29,14 @@ class Camera(object):
         thread.start()
 
     def process_one(self):
+        if not self.to_process:
+            return
 
-        if self.to_process is not None:
+        input_str = self.to_process.pop(0)
 
-            print("positovo para input")
-
-            input_str = self.to_process
-
-            im_bytes = base64.b64decode(input_str)
-            im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
-            input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
-
-        else:
-            print("negativo para input")
-
-            input_str = cv2.imread("./media/home1.png")
+        im_bytes = base64.b64decode(input_str)
+        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
+        input_str = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
         background = cv2.imread("./media/home1.png")
 
@@ -69,7 +62,7 @@ class Camera(object):
 
         imgf = base64.b64encode(im_bytes)
 
-        self.to_output = binascii.a2b_base64(imgf)
+        self.to_output.append(binascii.a2b_base64(imgf))
 
     def keep_processing(self):
         while True:
@@ -77,7 +70,9 @@ class Camera(object):
             sleep(0.01)
 
     def enqueue_input(self, input):
-        self.to_process = input
+        self.to_process.append(input)
 
     def get_frame(self):
-        return self.to_output
+        while not self.to_output:
+            sleep(0.05)
+        return self.to_output.pop(0)
