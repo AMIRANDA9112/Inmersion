@@ -26,7 +26,7 @@ app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
 
-camera = q.enqueue(Camera.Makeup_artist())
+camera = Camera.Makeup_artist()
 
 
 class User(db.Model):
