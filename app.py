@@ -25,7 +25,6 @@ app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
-lock = threading.Lock()
 
 
 camera = Camera(Makeup_artist())
@@ -46,9 +45,8 @@ db.create_all()
 
 @socketio.on('input image', namespace='/test')
 def test_message(input):
-    with lock:
-        input = input.split(",")[1]
-        camera.enqueue_input(input)
+    input = input.split(",")[1]
+    camera.enqueue_input(input)
 
 
 @socketio.on('connect', namespace='/test')
@@ -66,10 +64,9 @@ def gen():
 
     app.logger.info("starting to generate frames!")
     while True:
-        with lock:
-            frame = camera.get_frame()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
 @app.route('/video_feed')
