@@ -92,12 +92,12 @@ def start_page():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    with lock:
-        file = request.files['file']
-        file = file.raw.read()
-        pil_image = to_pil(file)
-        camera.max = save_img(pil_image)
-        camera.charge = True
+
+    file = request.files['file']
+    file = file.raw.read()
+    pil_image = to_pil(file)
+    camera.max = save_img(pil_image)
+    camera.charge = True
 
     return render_template('upload_pag.html')
 
