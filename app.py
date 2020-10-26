@@ -25,6 +25,8 @@ app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
+lock = threading.Lock()
+
 
 camera = Camera(Makeup_artist())
 
@@ -44,8 +46,9 @@ db.create_all()
 
 @socketio.on('input image', namespace='/test')
 def test_message(input):
-    input = input.split(",")[1]
-    camera.enqueue_input(input)
+    with lock:
+        input = input.split(",")[1]
+        camera.enqueue_input(input)
 
 
 @socketio.on('connect', namespace='/test')
@@ -63,9 +66,10 @@ def gen():
 
     app.logger.info("starting to generate frames!")
     while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        with lock:
+            frame = camera.get_frame()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
 @app.route('/video_feed')
@@ -88,11 +92,12 @@ def start_page():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    file = request.files['file']
-    file = file.raw.read()
-    pil_image = to_pil(file)
-    camera.max = save_img(pil_image)
-    camera.charge = True
+    with lock:
+        file = request.files['file']
+        file = file.raw.read()
+        pil_image = to_pil(file)
+        camera.max = save_img(pil_image)
+        camera.charge = True
 
     return render_template('upload_pag.html')
 

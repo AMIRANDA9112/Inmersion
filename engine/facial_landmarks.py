@@ -47,7 +47,7 @@ nexty = round((a1 / 100) * 60)
 nextx = round((b1 / 100) * 60)
 
 center = None
-r = 8
+r = 15
 r1 = 0
 r2 = 0
 
@@ -57,9 +57,9 @@ while cap.isOpened():
 
     ret, image = cap.read()
 
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    rects = detector(gray, 1)
+    rects = detector(image, 1)
 
     bg = cv2.imread(init)
     a, b, c = bg.shape
@@ -67,7 +67,7 @@ while cap.isOpened():
 
     for (i, rect) in enumerate(rects):
 
-        shape = predictor(gray, rect)
+        shape = predictor(image, rect)
         shape = face_utils.shape_to_np(shape)
 
         leftEye = shape[lStart:lEnd]
@@ -85,10 +85,11 @@ while cap.isOpened():
         rightEyeHul = antimirror(b, rightEyeHull)
 
         x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
-        x1.start()
         x2 = Thread(target=cv2.drawContours, args=(bg, [leftEyeHull], 0, bl, -1))
-        x2.start()
         x3 = Thread(target=cv2.drawContours, args=(bg, [rightEyeHull], 0, bl, -1))
+
+        x1.start()
+        x2.start()
         x3.start()
 
         c = 0
@@ -103,6 +104,10 @@ while cap.isOpened():
             if c in [61, 62, 63, 64, 65, 66, 67, 68]:
                 cv2.circle(bg, ((b - x), y), 0, wt, -1)
 
+        x1.join()
+        x2.join()
+        x3.join()
+
     if np.all(ids is not None):
 
         for c in corners:
@@ -115,7 +120,6 @@ while cap.isOpened():
     for i in range(1, len(pts)):
 
         if pts[i - 1] is None or pts[i] is None:
-
             continue
 
         thick = int(np.sqrt(len(pts) / float(i + 1)) * 2.5)
@@ -175,3 +179,10 @@ while cap.isOpened():
 
         if r2 == 1 and r3 == 0:
             r2 = 0
+
+    k = cv2.waitKey(1)
+    if k == 27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()

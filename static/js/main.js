@@ -35,7 +35,7 @@ $(document).ready(function(){
 
     setInterval(function () {
       sendSnapshot();
-    }, 250);
+    }, 333);
   }).catch(function(error) {
     console.log(error);
   });

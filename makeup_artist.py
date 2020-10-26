@@ -49,14 +49,14 @@ class Makeup_artist(object):
         center = None
         r = 8
 
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-        handrects = handpredictor(gray, 1)
-        rects = detector(gray, 1)
+        handrects = handpredictor(image, 1)
+        rects = detector(image, 1)
 
         for (i, rect) in enumerate(rects):
 
-            shape = predictor(gray, rect)
+            shape = predictor(image, rect)
             shape = face_utils.shape_to_np(shape)
 
             leftEye = shape[lStart:lEnd]
@@ -74,11 +74,12 @@ class Makeup_artist(object):
             rightEyeHull = self.antimirror(b1, rightEyeHull)
 
             x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
-            x1.start()
             x2 = Thread(target=cv2.drawContours, args=(bg, [leftEyeHull], 0, bl, -1))
+            x3 = Thread(target=cv2.drawContours, args=(bg, [rightEyeHull], 0, bl, -1))
+
+            x1.start()
             x2.start()
-            axix = Thread(target=cv2.drawContours, args=(bg, [rightEyeHull], 0, bl, -1))
-            axix.start()
+            x3.start()
 
             c = 0
             for (x, y) in shape:
@@ -91,6 +92,10 @@ class Makeup_artist(object):
 
                 if c in [61, 62, 63, 64, 65, 66, 67, 68]:
                     cv2.circle(bg, ((b1 - x), y), 0, wt, -1)
+
+            x1.join()
+            x2.join()
+            x3.join()
 
         if handrects:
 
