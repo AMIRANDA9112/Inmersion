@@ -1,4 +1,5 @@
 click
+cmake
 dlib
 enum-compat
 enum34
