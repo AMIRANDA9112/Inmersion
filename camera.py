@@ -12,8 +12,8 @@ from collections import deque
 
 class Camera(object):
     def __init__(self, makeup_artist):
-        self.to_process = []
-        self.to_output = []
+        self.to_process = deque(maxlen=2)
+        self.to_output = deque(maxlen=2)
         self.makeup_artist = makeup_artist
         self.face_detector = dlib.get_frontal_face_detector()
         self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
@@ -34,7 +34,7 @@ class Camera(object):
         if not self.to_process:
             return
 
-        input_str = self.to_process.pop(0)
+        input_str = self.to_process.popleft(0)
 
         im_bytes = base64.b64decode(input_str)
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
@@ -51,7 +51,7 @@ class Camera(object):
                                                      self.r1, self.r2)
 
         self.r1 = output_img[2]
-
+[]
         self.r2 = output_img[3]
         self.count = output_img[1]
 
@@ -72,4 +72,4 @@ class Camera(object):
     def get_frame(self):
         while not self.to_output:
             sleep(0.05)
-        return self.to_output.pop(0)
+        return self.to_output.popleft(0)
