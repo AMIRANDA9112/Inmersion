@@ -50,6 +50,9 @@ class Camera(object):
                                                      self.landmark_detector, self.background, self.count, self.max,
                                                      self.r1, self.r2)
 
+        self.r1 = output_img[2]
+
+        self.r2 = output_img[3]
         self.count = output_img[1]
 
         im_bytes = output_img[0].tobytes()

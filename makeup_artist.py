@@ -94,7 +94,7 @@ class Makeup_artist(object):
                     cv2.circle(bg, ((b1 - x), y), 1, rd, -1)
 
                 if c in [61, 62, 63, 64, 65, 66, 67, 68]:
-                    cv2.circle(bg, ((b1 - x), y), 0, wt, -1)
+                    cv2.circle(bg, ((b1 - x), y), 1, wt, -1)
 
         if handrects:
 
@@ -106,7 +106,7 @@ class Makeup_artist(object):
                 t = int(hrect.top())
                 center = (b1 - round(l + (r - l) / 2), t)
 
-                cv2.circle(bg, center, 0, wt, -1)
+                cv2.circle(bg, center, 1, wt, -1)
 
         _, im_arr = cv2.imencode('.jpg', bg)  # im_arr: image in Numpy one-dim array format.
 
