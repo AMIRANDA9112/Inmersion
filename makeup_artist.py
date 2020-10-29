@@ -94,7 +94,7 @@ class Makeup_artist(object):
                     cv2.circle(bg, ((b1 - x), y), 1, rd, -1)
 
                 if c in [61, 62, 63, 64, 65, 66, 67, 68]:
-                    cv2.circle(bg, ((b1 - x), y), 1, wt, -1)
+                    cv2.circle(bg, ((b1 - x), y), 4, wt, -1)
 
         if handrects:
 
