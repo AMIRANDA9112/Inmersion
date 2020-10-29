@@ -19,7 +19,7 @@ class Makeup_artist(object):
                 r[0] = b - r[0]
         return part_face
 
-    def apply_makeup(self, image, handdetector, pts, face, landmark, background, count, max):
+    def apply_makeup(self, image, handdetector, face, landmark, background, count, max):
 
         detector = face
         predictor = landmark
@@ -103,15 +103,13 @@ class Makeup_artist(object):
                 r = int(hrect.right())
                 t = int(hrect.top())
                 center = (b1 - round(l + (r - l) / 2), t)
-                pts.appendleft(center)
 
         for i in range(1, len(pts)):
 
             if pts[i - 1] is None or pts[i] is None:
                 continue
 
-            thick = int(np.sqrt(len(pts) / float(i + 1)) * 2.5)
-            cv2.line(bg, pts[i - 1], pts[i], (0, 0, 225), thick)
+            cv2.circle(bg, center, 0, wt, -1)
 
         _, im_arr = cv2.imencode('.jpg', bg)  # im_arr: image in Numpy one-dim array format.
 
@@ -160,4 +158,4 @@ class Makeup_artist(object):
             if r2 == 1 and r3 == 0:
                 r2 = 0
 
-        return im_arr, pts, im
+        return im_arr, im

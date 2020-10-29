@@ -18,7 +18,6 @@ class Camera(object):
         self.face_detector = dlib.get_frontal_face_detector()
         self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
         self.handetector = dlib.fhog_object_detector('./resources/HandDetector.svm')
-        self.pts = deque(maxlen=1)
         self.count = 0
         self.max = 0
         self.charge = False
@@ -45,12 +44,10 @@ class Camera(object):
         else:
             print("image no read")
 
-        output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.pts, self.face_detector,
+        output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.face_detector,
                                                      self.landmark_detector, self.background, self.count, self.max)
 
-        self.count = output_img[2]
-
-        self.pts = output_img[1]
+        self.count = output_img[1]
 
         im_bytes = output_img[0].tobytes()
 
