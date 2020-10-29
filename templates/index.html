@@ -11,27 +11,28 @@
              border: 10px #333 solid;
          }
          #videoElement {
-             width: 640px;
+             width: 180px;
              height: 480px;
              background-color: #666;
+             display: None;
          }
 
          #imageElement {
-             width: 640px;
-             height: 480px;
+             width: 1048px;
+             height: 720px;
              background-color: #666;
          }
 
          #canvasElement {
              width: 640px;
              height: 480px;
-             display: block;
+             display: None;
          }
         </style>
     </head>
     <body>
         <div id="container">
-            <video autoplay="true" id="videoElement">
+            <video autoplay="false" id="videoElement">
             </video>
             <img id="imageElement" src="{{ url_for('video_feed') }}">
             <canvas id="canvasElement" width="640" height="480"></canvas>

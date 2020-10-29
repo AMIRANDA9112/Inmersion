@@ -85,11 +85,11 @@ while cap.isOpened():
         rightEyeHul = antimirror(b, rightEyeHull)
 
         x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
-        x1.start()
+
         x2 = Thread(target=cv2.drawContours, args=(bg, [leftEyeHull], 0, bl, -1))
-        x2.start()
+
         x3 = Thread(target=cv2.drawContours, args=(bg, [rightEyeHull], 0, bl, -1))
-        x3.start()
+
 
         c = 0
         for (x, y) in shape:
@@ -102,6 +102,10 @@ while cap.isOpened():
 
             if c in [61, 62, 63, 64, 65, 66, 67, 68]:
                 cv2.circle(bg, ((b - x), y), 0, wt, -1)
+
+        x1.start()
+        x2.start()
+        x3.start()
 
     if np.all(ids is not None):
 
@@ -175,3 +179,11 @@ while cap.isOpened():
 
         if r2 == 1 and r3 == 0:
             r2 = 0
+
+    k = cv2.waitKey(1)
+    if k == 27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+
