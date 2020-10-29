@@ -48,8 +48,6 @@ class Makeup_artist(object):
         im = count
         center = None
         r = 8
-        r1 = 0
-        r2 = 0
 
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -123,11 +121,12 @@ class Makeup_artist(object):
                 r3 = 1
                 r1 += 1
 
-                if im <= max and r1 == 1 and r2 == 0:
+                if im < max and r1 == 1 and r2 == 0:
                     im += 1
                     r2 = 1
+                    r1 += 1
 
-                if im <= max and r1 > r:
+                if im < max and r1 > r:
                     r1 = 0
                     r2 = 1
                     im += 1
@@ -138,7 +137,8 @@ class Makeup_artist(object):
                 r3 = 1
                 r1 += 1
 
-                if im > 1 and r1 == 1 and r2 == 0:
+                if im > 0 and r1 == 1 and r2 == 0:
+                    r1 += 1
                     r2 = 1
                     im -= 1
 
