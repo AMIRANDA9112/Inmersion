@@ -103,12 +103,6 @@ class Makeup_artist(object):
                 r = int(hrect.right())
                 t = int(hrect.top())
                 center = (b1 - round(l + (r - l) / 2), t)
-
-        for i in range(1, len(pts)):
-
-            if pts[i - 1] is None or pts[i] is None:
-                continue
-
             cv2.circle(bg, center, 0, wt, -1)
 
         _, im_arr = cv2.imencode('.jpg', bg)  # im_arr: image in Numpy one-dim array format.
