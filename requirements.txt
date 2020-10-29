@@ -4,6 +4,7 @@ enum-compat
 enum34
 eventlet
 Flask
+flask-cors
 Flask-SocketIO
 gevent
 gevent-websocket

@@ -14,6 +14,7 @@ import time
 import threading
 from utils import base64_to_pil_image, pil_image_to_base64
 
+
 app = Flask(__name__)
 
 UPLOAD_FOLDER = os.path.basename('uploads')
