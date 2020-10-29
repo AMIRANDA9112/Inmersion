@@ -106,7 +106,7 @@ class Makeup_artist(object):
                 t = int(hrect.top())
                 center = (b1 - round(l + (r - l) / 2), t)
 
-        cv2.circle(bg, center, 0, wt, -1)
+                cv2.circle(bg, center, 0, wt, -1)
 
         _, im_arr = cv2.imencode('.jpg', bg)  # im_arr: image in Numpy one-dim array format.
 
