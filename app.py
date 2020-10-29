@@ -2,6 +2,7 @@ from camera import Camera
 import cv2
 from country_list import countries_for_language
 from flask_socketio import SocketIO
+from flask_cors import CORS
 from flask import Flask, render_template, Response, request, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import logging
@@ -16,6 +17,7 @@ from utils import base64_to_pil_image, pil_image_to_base64
 
 
 app = Flask(__name__)
+CORS(app)
 
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
