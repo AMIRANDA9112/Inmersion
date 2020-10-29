@@ -99,7 +99,7 @@ def to_pil(slides):
 def save_img(pil_images):
     index = 0
     for image in pil_images:
-        image.save("/tmp/page_" + str(camera.user) + str(self.count) + ".png")
+        image.save("/tmp/page_" + str(camera.user) + str(index) + ".png")
         index += 1
         print("chargue slide No: ", index)
     return index
