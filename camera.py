@@ -18,7 +18,7 @@ class Camera(object):
         self.face_detector = dlib.get_frontal_face_detector()
         self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
         self.handetector = dlib.fhog_object_detector('./resources/HandDetector.svm')
-        self.pts = deque(maxlen=2)
+        self.pts = deque(maxlen=1)
         self.count = 0
         self.max = 0
         self.charge = False

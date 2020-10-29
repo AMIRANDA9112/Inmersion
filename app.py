@@ -14,10 +14,7 @@ import time
 import threading
 from utils import base64_to_pil_image, pil_image_to_base64
 
-
-
 app = Flask(__name__)
-
 
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -38,7 +35,8 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     country = db.Column(db.String)
-   
+
+
 db.create_all()
 
 
@@ -56,6 +54,7 @@ def test_connect():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('home.html')
+
 
 def gen():
     """Video streaming generator function."""
@@ -83,8 +82,6 @@ def index():
 def upload_file():
     if request.method == "POST":
         file = request.files['file']
-        #file = request.form.get("file")
-        #file = req["file"]
         file = file.raw.read()
         pil_image = to_pil(file)
         camera.max = save_img(pil_image)
@@ -166,7 +163,7 @@ def signup():
         finally:
             db.session.close()
             return render_template("signup.html", countries=countries,
-                                    success="Successful Registration")    
+                                   success="Successful Registration")
     return render_template('signup.html', countries=countries)
 
 
