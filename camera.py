@@ -22,6 +22,7 @@ class Camera(object):
         self.count = 0
         self.max = 0
         self.charge = False
+        self.user = "None"
 
         thread = threading.Thread(target=self.keep_processing, args=())
         thread.daemon = True
@@ -40,7 +41,7 @@ class Camera(object):
         background = cv2.imread("./media/home1.png")
 
         if self.charge:
-            background = cv2.imread("/tmp/page_" + str(self.count) + ".png")
+            background = cv2.imread("/tmp/page_" + str(self.user) + str(self.count) + ".png")
             print("image read")
         else:
             print("image no read")
