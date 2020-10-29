@@ -179,3 +179,11 @@ while cap.isOpened():
 
         if r2 == 1 and r3 == 0:
             r2 = 0
+
+    k = cv2.waitKey(1)
+    if k == 27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+
