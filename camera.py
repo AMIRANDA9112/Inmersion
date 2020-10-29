@@ -51,7 +51,6 @@ class Camera(object):
                                                      self.r1, self.r2)
 
         self.r1 = output_img[2]
-[]
         self.r2 = output_img[3]
         self.count = output_img[1]
 
