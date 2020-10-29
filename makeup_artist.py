@@ -19,7 +19,7 @@ class Makeup_artist(object):
                 r[0] = b - r[0]
         return part_face
 
-    def apply_makeup(self, image, handdetector, face, landmark, background, count, max):
+    def apply_makeup(self, image, handdetector, face, landmark, background, count, max, r1, r2):
 
         detector = face
         predictor = landmark
@@ -121,7 +121,6 @@ class Makeup_artist(object):
             if nextx < axix < b1 and nexty < axiy < a1:
 
                 r3 = 1
-                r1 += 1
 
                 if im <= max and r1 == 1 and r2 == 0:
                     r1 = 0
@@ -137,7 +136,6 @@ class Makeup_artist(object):
 
             if 0 < axix < beforex and beforey < axiy < a1:
                 r3 = 1
-                r1 += 1
 
                 if im > 1 and r1 == 1 and r2 == 0:
                     r1 = 0
@@ -152,4 +150,4 @@ class Makeup_artist(object):
             if r2 == 1 and r3 == 0:
                 r2 = 0
 
-        return im_arr, im
+        return im_arr, im, r1, r2
