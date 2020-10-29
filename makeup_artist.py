@@ -98,8 +98,6 @@ class Makeup_artist(object):
 
         if handrects:
 
-            print("hand detect")
-
             for (i, hrect) in enumerate(handrects):
                 l = int(hrect.left())
                 r = int(hrect.right())

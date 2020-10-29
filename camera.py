@@ -56,6 +56,8 @@ class Camera(object):
         self.r1 = output_img[2]
         self.r2 = output_img[3]
         self.count = output_img[1]
+
+        print("fps No: " + str(self.r1) + "slide No: " + str(self.count) + "buttom activate: " + str(self.r2))
         im_bytes = output_img[0].tobytes()
 
         imgf = base64.b64encode(im_bytes)
