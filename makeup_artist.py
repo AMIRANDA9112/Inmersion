@@ -76,11 +76,13 @@ class Makeup_artist(object):
             rightEyeHull = self.antimirror(b1, rightEyeHull)
 
             x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
-            x1.start()
+
             x2 = Thread(target=cv2.drawContours, args=(bg, [leftEyeHull], 0, bl, -1))
+
+            x3 = Thread(target=cv2.drawContours, args=(bg, [rightEyeHull], 0, bl, -1))
+            x3.start()
+            x1.start()
             x2.start()
-            axix = Thread(target=cv2.drawContours, args=(bg, [rightEyeHull], 0, bl, -1))
-            axix.start()
 
             c = 0
             for (x, y) in shape:
