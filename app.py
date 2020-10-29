@@ -104,16 +104,12 @@ def save_img(pil_images):
         print("chargue slide No: ", index)
     return index
 
-    # Save file
-    # filename = 'static/' + file.filename
-    # file.save(filename)
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def signin():
     if request.method == "POST":
         email = request.form["email"]
-        camera.user = email
+        camera.user = str(email)
         password = request.form["pswd"]
         if not email:
             message = 'Please fill out this field.'
