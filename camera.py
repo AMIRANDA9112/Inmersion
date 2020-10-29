@@ -46,6 +46,9 @@ class Camera(object):
         else:
             print("image no read")
 
+        if self.background is None:
+            self.background = cv2.imread("./media/home1.png")
+
         output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.face_detector,
                                                      self.landmark_detector, self.background, self.count, self.max,
                                                      self.r1, self.r2)
@@ -53,7 +56,6 @@ class Camera(object):
         self.r1 = output_img[2]
         self.r2 = output_img[3]
         self.count = output_img[1]
-
         im_bytes = output_img[0].tobytes()
 
         imgf = base64.b64encode(im_bytes)
