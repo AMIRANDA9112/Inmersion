@@ -98,12 +98,15 @@ class Makeup_artist(object):
 
         if handrects:
 
+            print("hand detect")
+
             for (i, hrect) in enumerate(handrects):
                 l = int(hrect.left())
                 r = int(hrect.right())
                 t = int(hrect.top())
                 center = (b1 - round(l + (r - l) / 2), t)
-            cv2.circle(bg, center, 0, wt, -1)
+
+        cv2.circle(bg, center, 0, wt, -1)
 
         _, im_arr = cv2.imencode('.jpg', bg)  # im_arr: image in Numpy one-dim array format.
 
@@ -121,9 +124,9 @@ class Makeup_artist(object):
             if nextx < axix < b1 and nexty < axiy < a1:
 
                 r3 = 1
+                r1 += 1
 
                 if im <= max and r1 == 1 and r2 == 0:
-                    r1 = 0
                     im += 1
                     r2 = 1
 
@@ -136,13 +139,13 @@ class Makeup_artist(object):
 
             if 0 < axix < beforex and beforey < axiy < a1:
                 r3 = 1
+                r1 += 1
 
                 if im > 1 and r1 == 1 and r2 == 0:
-                    r1 = 0
                     r2 = 1
                     im -= 1
 
-                if im > 1 and r1 > r:
+                if im > 0 and r1 > r:
                     r1 = 0
                     r2 = 1
                     im -= 1
