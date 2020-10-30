@@ -7,10 +7,6 @@ We are in a new era, and the world requires new solutions for education, more co
 
 Immersion Project is a plugin extension for video-chat applications that helps you enhance your on-screen presentations through a set of augmented reality tools. With us, you can forget about using your mouse and keyboard, freeing your hands to increase your audience's attention.
 
-## Code Samples
-
-- images
-
 ## Installation
 
 Just visit https://project-inmersion.herokuapp.com/, register, and enjoy our free services.
