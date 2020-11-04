@@ -2,6 +2,7 @@ from camera import Camera
 import cv2
 from country_list import countries_for_language
 from flask_socketio import SocketIO
+from flask_cors import CORS
 from flask import Flask, render_template, Response, request, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import logging
@@ -15,9 +16,8 @@ import threading
 from utils import base64_to_pil_image, pil_image_to_base64
 
 
-
 app = Flask(__name__)
-
+CORS(app)
 
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -38,7 +38,8 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     country = db.Column(db.String)
-   
+
+
 db.create_all()
 
 
@@ -56,6 +57,7 @@ def test_connect():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('home.html')
+
 
 def gen():
     """Video streaming generator function."""
@@ -83,8 +85,6 @@ def index():
 def upload_file():
     if request.method == "POST":
         file = request.files['file']
-        #file = request.form.get("file")
-        #file = req["file"]
         file = file.raw.read()
         pil_image = to_pil(file)
         camera.max = save_img(pil_image)
@@ -102,20 +102,17 @@ def to_pil(slides):
 def save_img(pil_images):
     index = 0
     for image in pil_images:
-        image.save("/tmp/page_" + str(index) + ".png")
+        image.save("/tmp/page_" + str(camera.user) + str(index) + ".png")
         index += 1
         print("chargue slide No: ", index)
     return index
-
-    # Save file
-    # filename = 'static/' + file.filename
-    # file.save(filename)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def signin():
     if request.method == "POST":
         email = request.form["email"]
+        camera.user = str(email)
         password = request.form["pswd"]
         if not email:
             message = 'Please fill out this field.'
@@ -166,7 +163,7 @@ def signup():
         finally:
             db.session.close()
             return render_template("signup.html", countries=countries,
-                                    success="Successful Registration")    
+                                   success="Successful Registration")
     return render_template('signup.html', countries=countries)
 
 

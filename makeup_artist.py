@@ -19,7 +19,7 @@ class Makeup_artist(object):
                 r[0] = b - r[0]
         return part_face
 
-    def apply_makeup(self, image, handdetector, pts, face, landmark, background, count, max):
+    def apply_makeup(self, image, handdetector, face, landmark, background, count, max, r1, r2):
 
         detector = face
         predictor = landmark
@@ -48,8 +48,6 @@ class Makeup_artist(object):
         im = count
         center = None
         r = 8
-        r1 = 0
-        r2 = 0
 
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -76,11 +74,13 @@ class Makeup_artist(object):
             rightEyeHull = self.antimirror(b1, rightEyeHull)
 
             x1 = Thread(target=cv2.drawContours, args=(bg, [Mouth], 0, bk, -1))
-            x1.start()
+
             x2 = Thread(target=cv2.drawContours, args=(bg, [leftEyeHull], 0, bl, -1))
+
+            x3 = Thread(target=cv2.drawContours, args=(bg, [rightEyeHull], 0, bl, -1))
+            x3.start()
+            x1.start()
             x2.start()
-            axix = Thread(target=cv2.drawContours, args=(bg, [rightEyeHull], 0, bl, -1))
-            axix.start()
 
             c = 0
             for (x, y) in shape:
@@ -92,7 +92,7 @@ class Makeup_artist(object):
                     cv2.circle(bg, ((b1 - x), y), 1, rd, -1)
 
                 if c in [61, 62, 63, 64, 65, 66, 67, 68]:
-                    cv2.circle(bg, ((b1 - x), y), 0, wt, -1)
+                    cv2.circle(bg, ((b1 - x), y), 1, wt, -1)
 
         if handrects:
 
@@ -101,15 +101,7 @@ class Makeup_artist(object):
                 r = int(hrect.right())
                 t = int(hrect.top())
                 center = (b1 - round(l + (r - l) / 2), t)
-                pts.appendleft(center)
-
-        for i in range(1, len(pts)):
-
-            if pts[i - 1] is None or pts[i] is None:
-                continue
-
-            thick = int(np.sqrt(len(pts) / float(i + 1)) * 2.5)
-            cv2.line(bg, pts[i - 1], pts[i], (0, 0, 225), thick)
+                cv2.circle(bg, center, 4, rd, -1)
 
         _, im_arr = cv2.imencode('.jpg', bg)  # im_arr: image in Numpy one-dim array format.
 
@@ -129,12 +121,12 @@ class Makeup_artist(object):
                 r3 = 1
                 r1 += 1
 
-                if im <= max and r1 == 1 and r2 == 0:
-                    r1 = 0
+                if im < max and r1 == 1 and r2 == 0:
                     im += 1
                     r2 = 1
+                    r1 += 1
 
-                if im <= max and r1 > r:
+                if im < max and r1 > r:
                     r1 = 0
                     r2 = 1
                     im += 1
@@ -145,12 +137,12 @@ class Makeup_artist(object):
                 r3 = 1
                 r1 += 1
 
-                if im > 1 and r1 == 1 and r2 == 0:
-                    r1 = 0
+                if im > 0 and r1 == 1 and r2 == 0:
+                    r1 += 1
                     r2 = 1
                     im -= 1
 
-                if im > 1 and r1 > r:
+                if im > 0 and r1 > r:
                     r1 = 0
                     r2 = 1
                     im -= 1
@@ -158,4 +150,4 @@ class Makeup_artist(object):
             if r2 == 1 and r3 == 0:
                 r2 = 0
 
-        return im_arr, pts, im
+        return im_arr, im, r1, r2
