@@ -3,7 +3,7 @@ import cv2
 from country_list import countries_for_language
 from flask_socketio import SocketIO
 from flask_cors import CORS
-from flask import Flask, render_template, Response, request, session, redirect, url_for
+from flask import Flask, render_template, Response, request, session, redirect
 from flask_sqlalchemy import SQLAlchemy
 import logging
 from makeup_artist import Makeup_artist
@@ -56,12 +56,12 @@ def test_connect():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    """Home page method"""
     return render_template('home.html')
 
 
 def gen():
     """Video streaming generator function."""
-
     app.logger.info("starting to generate frames!")
     while True:
         frame = camera.get_frame()
@@ -83,6 +83,7 @@ def index():
 
 @app.route('/upload_page', methods=['GET', 'POST'])
 def upload_file():
+    """Page (Route) for uploading a PDF document"""
     if request.method == "POST":
         file = request.files['file']
         file = file.raw.read()
@@ -94,7 +95,8 @@ def upload_file():
 
 
 def to_pil(slides):
-    slides = pdf2image.convert_from_bytes(slides, dpi=200, fmt='png', thread_count=1,
+    slides = pdf2image.convert_from_bytes(slides, dpi=200,
+                                          fmt='png', thread_count=1,
                                           size=(640, 480), poppler_path=None)
     return slides
 
@@ -110,6 +112,7 @@ def save_img(pil_images):
 
 @app.route('/login', methods=['GET', 'POST'])
 def signin():
+    """Sign In page route"""
     if request.method == "POST":
         email = request.form["email"]
         camera.user = str(email)
@@ -118,18 +121,23 @@ def signin():
             message = 'Please fill out this field.'
             return render_template('login.html', message=message)
         if not password:
-            return render_template('login.html', message_p='Please fill out this field.')
+            return render_template(
+                'login.html', message_p='Please fill out this field.')
         user = User.query.filter_by(email=email, password=password).first()
         if user is None:
-            return render_template("login.html", message_failure="Wrong Credentials. Please Try Again.")
+            return render_template(
+                "login.html",
+                message_failure="Wrong Credentials. Please Try Again.")
         else:
-            return render_template('login.html', message_success="Successful login!!")
+            return render_template(
+                'login.html', message_success="Successful login!!")
 
     return render_template('login.html')
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    """Sign Up page route"""
     countries = dict(countries_for_language('en'))
     if request.method == "POST":
         req = request.form
@@ -169,6 +177,7 @@ def signup():
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():
+    """About Us page route"""
     return render_template('about.html')
 
 
