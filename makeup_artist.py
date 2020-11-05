@@ -1,12 +1,15 @@
 import base64
+from collections import deque
+import cv2
+import cv2.aruco as aruco
+import dlib
 from imutils import face_utils
 import imutils
-import dlib
-import cv2
-from threading import Thread
 import numpy as np
-import cv2.aruco as aruco
-from collections import deque
+from threading import Thread
+
+
+
 
 
 class Makeup_artist(object):
