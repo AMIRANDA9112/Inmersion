@@ -7,6 +7,12 @@ We are in a new era, and the world requires new solutions for education, more co
 
 Immersion Project is a plugin extension for video-chat applications that helps you enhance your on-screen presentations through a set of augmented reality tools. With us, you can forget about using your mouse and keyboard, freeing your hands to increase your audience's attention.
 
+### Team 
+
+| [Andres Miranda](https://github.com/amiranda9112) <br> Video Processing| [Bryan Ortiz](https://github.com/bryano13/)  <br>  Front End - JS  |	[Julian Cano](https://github.com/JulianCanoDev) <br> Front End - Backend API | [Luis Angel Vargas](https://github.com/LuAnVaRmO) <br>  Back End - Front End UI|
+| -------------- | -------------- | ------------ |------------------- |
+| ![Andres Miranda](https://avatars2.githubusercontent.com/u/60367661?s=400&u=5a2462983e80408325f3a3ba9c26d5366f4c3649&v=4)   |![Bryan Ortiz](https://avatars2.githubusercontent.com/u/56614630?s=400&u=12dda68d035cb01a54dffd9798a662b95400f660&v=4)    |  ![Julian Cano](https://avatars3.githubusercontent.com/u/34167878?s=400&u=0954afe55077a4b4ce4cc4414082b91e622eabfc&v=4) | ![Luis Angel Vargas](https://avatars3.githubusercontent.com/u/43767675?s=400&v=4) 
+
 ## Installation
 
 Just visit https://project-inmersion.herokuapp.com/, register, and enjoy our free services.
