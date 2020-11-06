@@ -1,11 +1,11 @@
-from engine.camera import Camera
 from country_list import countries_for_language
+from engine.camera import Camera
+from engine.makeup_artist import Makeup_artist
 from flask_socketio import SocketIO
 from flask_cors import CORS
 from flask import Flask, render_template, Response, request
 from flask_sqlalchemy import SQLAlchemy
 import logging
-from engine.makeup_artist import Makeup_artist
 import os
 import pdf2image
 from sys import stdout
@@ -89,6 +89,11 @@ def upload_file():
 
 
 def to_pil(slides):
+    """
+    Funtion that convert slides from pdf to png format
+    :param slides: pdf file
+    :return: png images files
+    """
     slides = pdf2image.convert_from_bytes(slides, dpi=200,
                                           fmt='png', thread_count=1,
                                           size=(640, 480), poppler_path=None)
@@ -96,6 +101,12 @@ def to_pil(slides):
 
 
 def save_img(pil_images):
+
+    """
+    Function that save images
+    :param pil_images: images to save
+    :return: number of images
+    """
     index = 0
     for image in pil_images:
         image.save("/tmp/page_" + str(camera.user) + str(index) + ".png")
