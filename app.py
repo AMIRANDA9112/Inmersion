@@ -1,20 +1,14 @@
-from camera import Camera
-import cv2
+from engine.camera import Camera
 from country_list import countries_for_language
 from flask_socketio import SocketIO
 from flask_cors import CORS
-from flask import Flask, render_template, Response, request, session, redirect
+from flask import Flask, render_template, Response, request
 from flask_sqlalchemy import SQLAlchemy
 import logging
-from makeup_artist import Makeup_artist
-import numpy
+from engine.makeup_artist import Makeup_artist
 import os
 import pdf2image
 from sys import stdout
-import time
-import threading
-from utils import base64_to_pil_image, pil_image_to_base64
-
 
 app = Flask(__name__)
 CORS(app)

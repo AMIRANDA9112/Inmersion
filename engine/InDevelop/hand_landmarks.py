@@ -1,9 +1,10 @@
 from __future__ import print_function
-from imutils import face_utils
-import numpy as np
-import imutils
 import cv2
 import dlib
+
+"""
+this script detect your palm hands from webcam
+"""
 
 cap = cv2.VideoCapture(0)
 

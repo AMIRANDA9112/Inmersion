@@ -1,15 +1,15 @@
-import base64
-from imutils import face_utils
-import imutils
-import dlib
 import cv2
+from imutils import face_utils
 from threading import Thread
-import numpy as np
-import cv2.aruco as aruco
-from collections import deque
+
+"""
+Create class that detect face, crate avatar over the slide how background,
+detect QR marker and active AR buttons for change slides in the down corners
+"""
 
 
 class Makeup_artist(object):
+
     def __init__(self):
         pass
 
