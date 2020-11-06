@@ -1,20 +1,16 @@
-"""
-An example of using ArUco markers with OpenCV.
-"""
-
 import cv2
 import cv2.aruco as aruco
 import numpy as np
+
+"""
+AR feature for use QR marker how screen from webcam
+"""
 
 cap = cv2.VideoCapture(0)
 
 dvideo = cv2.VideoCapture('../media/math.mp4')
 
-
-
-
 fn = 0
-
 
 while cap.isOpened():
     fn += 1

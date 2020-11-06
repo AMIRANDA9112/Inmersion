@@ -3,11 +3,22 @@ import dlib
 import cv2
 from threading import Thread
 import numpy as np
-from collections import deque
 import pyfakewebcam
+
+"""
+This script make other webcam output, and replace the image 
+for a avatar form your face and black background
+"""
 
 
 def antimirror(b, part_face):
+
+    """
+    Reverse the axi Y parameter for mirror efect
+    :param b: height screen int
+    :param part_face: structure with axi X and Y
+    :return: axi Y inverse
+    """
     for l in part_face:
         for r in l:
             r[0] = b - r[0]
@@ -104,7 +115,6 @@ while cap.isOpened():
         x2.start()
         x3.start()
 
-        pues
     k = cv2.waitKey(1)
     if k == 27:
         break

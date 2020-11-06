@@ -2,35 +2,35 @@ import cv2
 import numpy as np
 import cv2.aruco as aruco
 
+"""
+This script give the webcam for air paint with QR 6x6 marker
+"""
+
 cap = cv2.VideoCapture(0)
 
-# Colores para pintar
 colorBlue = (255, 0, 0)
 colorYellow = (89, 222, 255)
 colorRed = (0, 0, 255)
 colorGreen = (0, 255, 0)
 ColorWhite = (0, 0, 0)
 
-
-WlineBlue = 6
-WlineYellow = 2
-WlineRed = 2
-WlineGreen = 2
-
+lineBlue2 = 6
+lineYellow2 = 2
+lineRed2 = 2
+lineGreen2 = 2
 
 lineMin = 1
 lineMid = 3
 LineBig = 4
 
-
-color = colorBlue  # Color
-wLine = 3  # Grosor
+color = colorBlue
+wLine = 3
 
 aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
 parameters = aruco.DetectorParameters_create()
+imAux = None
 x1 = None
 y1 = None
-imAux = None
 
 while cap.isOpened():
 
@@ -46,18 +46,15 @@ while cap.isOpened():
 
     corners, ids, _ = aruco.detectMarkers(frameb, aruco_dict, parameters=parameters)
 
-    # color
-    cv2.rectangle(frame, (0, 0), (50, 50), colorYellow, WlineYellow)
-    cv2.rectangle(frame, (50, 0), (100, 50), colorRed, WlineRed)
-    cv2.rectangle(frame, (100, 0), (150, 50), colorGreen, WlineGreen)
-    cv2.rectangle(frame, (150, 0), (200, 50), colorBlue, WlineBlue)
+    cv2.rectangle(frame, (0, 0), (50, 50), colorYellow, lineYellow2)
+    cv2.rectangle(frame, (50, 0), (100, 50), colorRed, lineRed2)
+    cv2.rectangle(frame, (100, 0), (150, 50), colorGreen, lineGreen2)
+    cv2.rectangle(frame, (150, 0), (200, 50), colorBlue, lineBlue2)
 
-    # limpiar la pantalla
     cv2.rectangle(frame, (300, 0), (400, 50), ColorWhite, 1)
     cv2.putText(frame, 'Restart', (320, 20), 6, 0.6, ColorWhite, 1, cv2.LINE_AA)
-    cv2.putText(frame, 'SCREEN', (320, 40), 6, 0.6, ColorWhite, 1, cv2.LINE_AA)
+    cv2.putText(frame, 'Screen', (320, 40), 6, 0.6, ColorWhite, 1, cv2.LINE_AA)
 
-    # grosor
     cv2.rectangle(frame, (490, 0), (540, 50), (0, 0, 0), lineMin)
     cv2.circle(frame, (515, 25), 3, (0, 0, 0), -1)
     cv2.rectangle(frame, (540, 0), (590, 50), (0, 0, 0), lineMid)
@@ -76,41 +73,41 @@ while cap.isOpened():
 
             if 0 < x2 < 50 and 0 < y2 < 50:
                 color = colorYellow  # Color
-                WlineYellow = 6
-                WlineRed = 2
-                WlineGreen = 2
-                WlineBlue = 2
+                lineYellow2 = 6
+                lineRed2 = 2
+                lineGreen2 = 2
+                lineBlue2 = 2
 
             if 100 > x2 > 50 > y2 > 0:
                 color = colorRed  # Color
-                WlineYellow = 2
-                WlineRed = 6
-                WlineGreen = 2
-                WlineBlue = 2
+                lineYellow2 = 2
+                lineRed2 = 6
+                lineGreen2 = 2
+                lineBlue2 = 2
             if 100 < x2 < 150 and 0 < y2 < 50:
                 color = colorGreen  # Color
-                WlineYellow = 2
-                WlineRed = 2
-                WlineGreen = 6
-                WlineBlue = 2
+                lineYellow2 = 2
+                lineRed2 = 2
+                lineGreen2 = 6
+                lineBlue2 = 2
             if 150 < x2 < 200 and 0 < y2 < 50:
-                color = colorBlue  # Color
-                WlineYellow = 2
-                WlineRed = 2
-                WlineGreen = 2
-                WlineBlue = 6
+                color = colorBlue
+                lineYellow2 = 2
+                lineRed2 = 2
+                lineGreen2 = 2
+                lineBlue2 = 6
             if 490 < x2 < 540 and 0 < y2 < 50:
-                wLine = 3  # Grosor
+                wLine = 3
                 lineMin = 6
                 lineMid = 1
                 LineBig = 1
             if 540 < x2 < 590 and 0 < y2 < 50:
-                wLine = 7  # Grosor
+                wLine = 7
                 lineMin = 1
                 lineMid = 6
                 LineBig = 1
             if 590 < x2 < 640 and 0 < y2 < 50:
-                wLine = 11  # Grosor
+                wLine = 11
                 lineMin = 1
                 lineMid = 1
                 LineBig = 6

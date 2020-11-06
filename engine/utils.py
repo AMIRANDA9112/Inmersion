@@ -1,6 +1,11 @@
-from PIL import Image
-from io import BytesIO
 import base64
+from io import BytesIO
+from PIL import Image
+
+"""
+Scripts wih two functions, one to convert PIL_image object to base64 and other make the
+inverse transformation
+"""
 
 
 def pil_image_to_base64(pil_image):

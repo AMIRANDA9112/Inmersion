@@ -1,13 +1,15 @@
-import threading
 import binascii
-from time import sleep
-from utils import base64_to_pil_image, pil_image_to_base64
 import base64
-import numpy as np
+from collections import deque
 import cv2
 import dlib
-import cv2.aruco as aruco
-from collections import deque
+import numpy as np
+import threading
+from time import sleep
+
+"""
+Create Class Camera that receive, transform and send the frames from client in API
+"""
 
 
 class Camera(object):
@@ -16,13 +18,13 @@ class Camera(object):
         self.to_output = deque(maxlen=2)
         self.makeup_artist = makeup_artist
         self.face_detector = dlib.get_frontal_face_detector()
-        self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
-        self.handetector = dlib.fhog_object_detector('./resources/HandDetector.svm')
+        self.landmark_detector = dlib.shape_predictor("../resources/shape_68_dots.dat")
+        self.handetector = dlib.fhog_object_detector('../resources/HandDetector.svm')
         self.count = 0
         self.max = 0
         self.charge = False
         self.user = "None"
-        self.background = cv2.imread("./media/home1.png")
+        self.background = cv2.imread("../media/home1.png")
         self.r1 = 0
         self.r2 = 0
 
@@ -31,6 +33,13 @@ class Camera(object):
         thread.start()
 
     def process_one(self):
+        """
+        This method transform image string-bit-string and app the makeup_artist
+        function
+
+
+        :return: Slide with avatar
+        """
         if not self.to_process:
             return
 
@@ -47,7 +56,7 @@ class Camera(object):
             print("image no read")
 
         if self.background is None:
-            self.background = cv2.imread("./media/home1.png")
+            self.background = cv2.imread("../media/home1.png")
 
         output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.face_detector,
                                                      self.landmark_detector, self.background, self.count, self.max,
