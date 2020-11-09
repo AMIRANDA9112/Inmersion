@@ -18,13 +18,13 @@ class Camera(object):
         self.to_output = deque(maxlen=2)
         self.makeup_artist = makeup_artist
         self.face_detector = dlib.get_frontal_face_detector()
-        self.landmark_detector = dlib.shape_predictor("../resources/shape_68_dots.dat")
-        self.handetector = dlib.fhog_object_detector('../resources/HandDetector.svm')
+        self.landmark_detector = dlib.shape_predictor("./resources/shape_68_dots.dat")
+        self.handetector = dlib.fhog_object_detector('./resources/HandDetector.svm')
         self.count = 0
         self.max = 0
         self.charge = False
         self.user = "None"
-        self.background = cv2.imread("../media/home1.png")
+        self.background = cv2.imread("./media/home1.png")
         self.r1 = 0
         self.r2 = 0
 
@@ -56,7 +56,7 @@ class Camera(object):
             print("image no read")
 
         if self.background is None:
-            self.background = cv2.imread("../media/home1.png")
+            self.background = cv2.imread("./media/home1.png")
 
         output_img = self.makeup_artist.apply_makeup(input_str, self.handetector, self.face_detector,
                                                      self.landmark_detector, self.background, self.count, self.max,
